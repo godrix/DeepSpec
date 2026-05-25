@@ -1,7 +1,7 @@
 # DeepFlow — End-to-End Examples
 
 Concrete walkthroughs showing the agent's expected behavior at each stage.
-The example task is `042-auto-save-by-sound` (auto-save a recording clip when a loud sound is detected).
+The example task is `00-auto-save-by-sound` (auto-save a recording clip when a loud sound is detected). The `00-` prefix is assigned automatically on create.
 
 ---
 
@@ -47,13 +47,13 @@ The example task is `042-auto-save-by-sound` (auto-save a recording clip when a 
 
 ## Example 2 — Draft Stage
 
-**User:** `Create task 042-auto-save-by-sound`
+**User:** `Create task auto-save-by-sound`
 
 **Agent actions:**
 
 1. **Context Loading** (in order): reads open files, `AGENTS.md`, `memory.md`, scans `src/lib/BufferManager.ts` and `src/screens/RecordingScreen.tsx`.
-2. Creates `.deepflow/specs/drafts/042-auto-save-by-sound/`.
-3. Generates the three files using the templates. Excerpts:
+2. Scans `drafts/`, `active/`, and `archive/` — no existing `NN-*` folders → assigns prefix `00`.
+3. Creates `.deepflow/specs/drafts/00-auto-save-by-sound/` and generates the three files using the templates. Excerpts:
 
 **`APPROACH.md`** (excerpt):
 ```markdown
@@ -79,7 +79,7 @@ The example task is `042-auto-save-by-sound` (auto-save a recording clip when a 
 
 **`COMPLETION_REPORT.md`**: initialized with `Status: [PENDING]`.
 
-4. Asks: *"A-B-C drafted. Review the files and respond with `Approve task` to proceed."*
+4. Asks: *"A-B-C drafted in `00-auto-save-by-sound/`. Review the files and respond with `Approve task` to proceed."*
 
 ---
 
@@ -89,11 +89,11 @@ The example task is `042-auto-save-by-sound` (auto-save a recording clip when a 
 
 **Agent actions:**
 
-1. `git mv .deepflow/specs/drafts/042-auto-save-by-sound .deepflow/specs/active/` (or equivalent file move).
+1. `git mv .deepflow/specs/drafts/00-auto-save-by-sound .deepflow/specs/active/` (or equivalent file move).
 2. Announces: *"Plan approved. Entering active execution. APPROACH.md is now immutable."*
 3. Posts the progress checklist:
    ```
-   DeepFlow Progress 042-auto-save-by-sound:
+   DeepFlow Progress 00-auto-save-by-sound:
    - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
    - [ ] APPROACH step 1: Add AudioLevelMonitor module
    - [ ] APPROACH step 2: Wire into RecordingScreen
@@ -154,17 +154,17 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 **Agent actions:**
 
-1. Moves folder: `.deepflow/specs/active/042-auto-save-by-sound/` → `.deepflow/specs/archive/`.
+1. Moves folder: `.deepflow/specs/active/00-auto-save-by-sound/` → `.deepflow/specs/archive/`.
 2. Finalizes `COMPLETION_REPORT.md` (`Status: [DONE]`, fills test evidence, AC checklist).
 3. Appends to `.deepflow/memory.md`:
    ```markdown
-   [2026-05-11] 042: Auto-save clip on loud audio peak. Ref: specs/archive/042-auto-save-by-sound
+   [2026-05-11] 00: Auto-save clip on loud audio peak. Ref: specs/archive/00-auto-save-by-sound
 
    ## Lessons
    - `Audio.recordingStatusListener` fires at ~10 Hz on Android; for peak detection
      prefer a native module if sub-100ms latency is required.
    ```
-4. Confirms to user: *"Task 042 archived and indexed in memory.md."*
+4. Confirms to user: *"Task 00 archived and indexed in memory.md."*
 
 ---
 

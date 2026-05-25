@@ -64,7 +64,7 @@ deep-flow/
     └── archive/           # Stage 3: completed specs
 ```
 
-Each task lives in `[ID]-[name]/` with the three A-B-C files generated from `skill/templates/`.
+Each task lives in `[NN]-[name]/` (auto-incrementing prefix: `00-`, `01-`, …) with the three A-B-C files generated from `skill/templates/`.
 
 ## Installation (Cursor)
 
@@ -84,7 +84,7 @@ For a user-wide install, use your user-level Cursor skills directory instead of 
 ## Workflow
 
 1. **Initialize:** say *"Initialize DeepFlow"*. The agent creates `.deepflow/`, the pipeline folders, and generates `AGENTS.md` from the repo.
-2. **Create task:** *"Create task [ID]-[name]"`* — creates a draft under `drafts/` with A-B-C; **no application code** in this stage.
+2. **Create task:** *"Create task [name]"`* — assigns the next numeric prefix (`00-`, `01-`, …), creates a draft under `drafts/` with A-B-C; **no application code** in this stage.
 3. **Review (gatekeeper):** read `APPROACH.md` and `BUSINESS_CONTEXT.md`. Iterate in chat or approve.
 4. **Approve:** *"Approve task"* — moves the folder to `active/`; `APPROACH.md` becomes **immutable**; execution starts with TDD and a progress checklist.
 5. **Complete:** *"Complete task"* — moves to `archive/` and updates `memory.md` with an index and learnings.

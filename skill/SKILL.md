@@ -21,7 +21,7 @@ Each task carries 3 docs — the **A-B-C flow**:
 | Command | Trigger | Effect |
 |---|---|---|
 | `"Initialize DeepFlow"` | First use OR `.deepflow/` missing | Bootstrap scaffolding + auto-generate `AGENTS.md` |
-| `"Create task [ID]-[name]"` | New work | Enter **Draft** stage (planning only, no code) |
+| `"Create task [name]"` | New work | Enter **Draft** stage (planning only, no code); folder prefix auto-assigned |
 | `"Approve task"` | After review of A-B-C | Move task `drafts/` → `active/` and start implementation |
 | `"Complete task"` | Implementation done | Move task `active/` → `archive/` + index in `memory.md` |
 
@@ -73,15 +73,19 @@ Before writing any spec or code, load context in **exactly** this order. Stop at
 
 ### 2. Stage 1 — Draft (A-B-C Flow)
 
-**Trigger:** `"Create task [ID]-[name]"`
+**Trigger:** `"Create task [name]"` (kebab-case slug only — **do not** ask the user for a numeric ID)
 
-1. Create directory `.deepflow/specs/drafts/[ID]-[name]/`.
+1. **Assign the next folder prefix** (scan `drafts/`, `active/`, and `archive/`):
+   - Collect folders whose names match `^\d{2,}-` (e.g. `03-login`, `12-auth`).
+   - Parse the leading number; `next = max + 1`, or `0` if none exist.
+   - Zero-pad to **at least two digits**: `00`, `01`, … `99`, then `100`, `101`, …
+   - Create `.deepflow/specs/drafts/[NN]-[name]/` (first task → `00-auto-save-by-sound/`).
 2. **NO CODE RULE:** strictly planning. Do **NOT** modify or create any application code (e.g., `src/`, `app/`, `lib/`).
 3. Generate the three A-B-C files using the templates in `templates/`:
    - `APPROACH.md` — see `templates/APPROACH.template.md`
    - `BUSINESS_CONTEXT.md` — see `templates/BUSINESS_CONTEXT.template.md`
    - `COMPLETION_REPORT.md` — see `templates/COMPLETION_REPORT.template.md` (initialized as `[PENDING]`)
-4. Ask the user to review and respond with `"Approve task"` or feedback.
+4. Tell the user the assigned folder name (e.g. `00-auto-save-by-sound`) and ask them to review; respond with `"Approve task"` or feedback.
 
 ### 3. Stage Transition — The Gatekeeper
 
@@ -96,7 +100,7 @@ Before writing any spec or code, load context in **exactly** this order. Stop at
 Copy this checklist into the chat and keep it updated at every step:
 
 ```
-DeepFlow Progress [ID]-[name]:
+DeepFlow Progress [NN]-[name]:
 - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
 - [ ] APPROACH step 1: <short description>
 - [ ] APPROACH step 2: <short description>
@@ -118,7 +122,7 @@ Rules during execution:
 1. Move the task folder from `active/` to `.deepflow/specs/archive/`.
 2. Append an index entry to `.deepflow/memory.md`:
    ```
-   [YYYY-MM-DD] [ID]: <one-line summary>. Ref: specs/archive/[ID]-[name]
+   [YYYY-MM-DD] [NN]: <one-line summary>. Ref: specs/archive/[NN]-[name]
    ```
 3. If the task surfaced any "gotchas" or reusable lessons, append them as concise notes under a `## Lessons` section in `memory.md`.
 
