@@ -1,4 +1,4 @@
-# DeepFlow — End-to-End Examples
+# DeepSpec — End-to-End Examples
 
 Concrete walkthroughs showing the agent's expected behavior at each stage.
 The example task is `00-auto-save-by-sound` (auto-save a recording clip when a loud sound is detected). The `00-` prefix is assigned automatically on create.
@@ -7,20 +7,20 @@ The example task is `00-auto-save-by-sound` (auto-save a recording clip when a l
 
 ## Example 1 — Initialization
 
-**User:** `Initialize DeepFlow`
+**User:** `Initialize DeepSpec`
 
 **Agent actions:**
 
-1. Detects `.deepflow/` is missing.
+1. Detects `.deepspec/` is missing.
 2. Creates scaffold:
    ```
-   .deepflow/
+   .deepspec/
    ├── AGENTS.md
    ├── memory.md
    └── specs/{drafts,active,archive}/
    ```
 3. Scans repo: `package.json`, `tsconfig.json`, `eslint.config.*`, `__tests__/`, etc.
-4. Writes `.deepflow/AGENTS.md` with detected stack:
+4. Writes `.deepspec/AGENTS.md` with detected stack:
    ```markdown
    # AGENTS.md
 
@@ -53,7 +53,7 @@ The example task is `00-auto-save-by-sound` (auto-save a recording clip when a l
 
 1. **Context Loading** (in order): reads open files, `AGENTS.md`, `memory.md`, scans `src/lib/BufferManager.ts` and `src/screens/RecordingScreen.tsx`.
 2. Scans `drafts/`, `active/`, and `archive/` — no existing `NN-*` folders → assigns prefix `00`.
-3. Creates `.deepflow/specs/drafts/00-auto-save-by-sound/` and generates the three files using the templates. Excerpts:
+3. Creates `.deepspec/specs/drafts/00-auto-save-by-sound/` and generates the three files using the templates. Excerpts:
 
 **`APPROACH.md`** (excerpt):
 ```markdown
@@ -83,17 +83,35 @@ The example task is `00-auto-save-by-sound` (auto-save a recording clip when a l
 
 ---
 
+## Example 2b — Discard Draft (abandoned spec)
+
+**User:** `Discard task` (or `Discard task` with a reason: scope moved to another project)
+
+**Agent actions:**
+
+1. Moves folder: `.deepspec/specs/drafts/00-auto-save-by-sound/` → `.deepspec/specs/archive/` (skips `active/`).
+2. Updates `COMPLETION_REPORT.md`: `Status: [DISCARDED]`, discard date, optional reason.
+3. Appends to `.deepspec/memory.md`:
+   ```markdown
+   [2026-05-28] [00]: [discarded] Product pivot — loud-peak auto-save deferred. Ref: specs/archive/00-auto-save-by-sound
+   ```
+4. Confirms: *"Draft 00 discarded and archived. No implementation was started."*
+
+**When to use:** the plan is no longer valid, duplicated, or explicitly shelved. Do **not** use `"Complete task"` (that is only for tasks that reached `active/`).
+
+---
+
 ## Example 3 — Approval (Stage Transition)
 
 **User:** `Approve task`
 
 **Agent actions:**
 
-1. `git mv .deepflow/specs/drafts/00-auto-save-by-sound .deepflow/specs/active/` (or equivalent file move).
+1. `git mv .deepspec/specs/drafts/00-auto-save-by-sound .deepspec/specs/active/` (or equivalent file move).
 2. Announces: *"Plan approved. Entering active execution. APPROACH.md is now immutable."*
 3. Posts the progress checklist:
    ```
-   DeepFlow Progress 00-auto-save-by-sound:
+   DeepSpec Progress 00-auto-save-by-sound:
    - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
    - [ ] APPROACH step 1: Add AudioLevelMonitor module
    - [ ] APPROACH step 2: Wire into RecordingScreen
@@ -154,9 +172,9 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 **Agent actions:**
 
-1. Moves folder: `.deepflow/specs/active/00-auto-save-by-sound/` → `.deepflow/specs/archive/`.
+1. Moves folder: `.deepspec/specs/active/00-auto-save-by-sound/` → `.deepspec/specs/archive/`.
 2. Finalizes `COMPLETION_REPORT.md` (`Status: [DONE]`, fills test evidence, AC checklist).
-3. Appends to `.deepflow/memory.md`:
+3. Appends to `.deepspec/memory.md`:
    ```markdown
    [2026-05-11] 00: Auto-save clip on loud audio peak. Ref: specs/archive/00-auto-save-by-sound
 
@@ -181,3 +199,9 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 ❌ **Heavy docs on small task:** 3-page APPROACH for a 1-file change.
 ✅ Correct: apply the Task Sizing table — Small tasks get bullet-list APPROACH.
+
+❌ **Deleting a draft folder:** loses audit trail of what was considered and why it stopped.
+✅ Correct: `"Discard task"` → `archive/` + `[discarded]` line in `memory.md`.
+
+❌ **Complete task on a draft:** `Complete task` only applies to `active/` tasks.
+✅ Correct: use `"Discard task"` for drafts you will not implement.

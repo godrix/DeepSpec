@@ -1,15 +1,22 @@
 # [C] COMPLETION REPORT — [NN]-[name]
 
 > **The Evidence.** Updated continuously during Active execution.
-> Initialize as `[PENDING]`. Finalize on `"Complete task"`.
+> Initialize as `[PENDING]`. Finalize on `"Complete task"`. Set `[DISCARDED]` on `"Discard task"` (draft only).
 
-**Status:** `[PENDING]` | `[IN PROGRESS]` | `[DONE]`
+**Status:** `[PENDING]` | `[IN PROGRESS]` | `[DONE]` | `[DISCARDED]`
 **Started:** YYYY-MM-DD
 **Completed:** YYYY-MM-DD
 
+## Discarded
+
+Fill this section only when the draft is archived via `"Discard task"` (never implemented).
+
+- **Discarded:** YYYY-MM-DD
+- **Discard reason:** …
+
 ## Execution Log
 
-Append an entry after each APPROACH step.
+Append an entry after each APPROACH step (active execution only).
 
 ### Step 1 — <title>
 - **Files touched:** `…`
