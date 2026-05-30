@@ -63,7 +63,7 @@ Templates live under `deep-spec/templates/` and are instantiated for each task f
     └── archive/           # Stage 3: completed specs
 ```
 
-Each task lives in `[NN]-[name]/` (auto-incrementing prefix: `00-`, `01-`, …) with the three A-B-C files generated from `deep-spec/templates/`.
+Each task lives in `[name]/` (kebab-case slug from the task name) with the three A-B-C files generated from `deep-spec/templates/`.
 
 ## Installation (Cursor)
 
@@ -85,7 +85,7 @@ Or install via CursorToys: **Initialize DeepSpec** downloads from [github.com/go
 ## Workflow
 
 1. **Initialize:** say *"Initialize DeepSpec"*. The agent creates `.deepspec/`, the pipeline folders, and generates `AGENTS.md` from the repo.
-2. **Create task:** *"Create task [name]"`* — assigns the next numeric prefix (`00-`, `01-`, …), creates a draft under `drafts/` with A-B-C; **no application code** in this stage.
+2. **Create task:** *"Create task [name]"`* — creates a draft folder under `drafts/` named from the task (kebab-case); **no application code** in this stage.
 3. **Review (gatekeeper):** read `APPROACH.md` and `BUSINESS_CONTEXT.md`. Iterate in chat, approve, or discard.
 4. **Approve:** *"Approve task"* — moves the folder to `active/`; `APPROACH.md` becomes **immutable**; execution starts with TDD and a progress checklist.
 5. **Discard (optional):** *"Discard task"* — moves a draft straight to `archive/` when the idea is abandoned or deferred; indexes `memory.md` as `[discarded]`; no code is written.

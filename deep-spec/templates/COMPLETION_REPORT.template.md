@@ -1,4 +1,4 @@
-# [C] COMPLETION REPORT — [NN]-[name]
+# [C] COMPLETION REPORT — [name]
 
 > **The Evidence.** Updated continuously during Active execution.
 > Initialize as `[PENDING]`. Finalize on `"Complete task"`. Set `[DISCARDED]` on `"Discard task"` (draft only).

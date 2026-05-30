@@ -23,7 +23,7 @@ Each task carries 3 docs — the **A-B-C flow**:
 | Command | Trigger | Effect |
 |---|---|---|
 | `"Initialize DeepSpec"` | First use OR `.deepspec/` missing | Bootstrap scaffolding + auto-generate `AGENTS.md` |
-| `"Create task [name]"` | New work | Enter **Draft** stage (planning only, no code); folder prefix auto-assigned |
+| `"Create task [name]"` | New work | Enter **Draft** stage (planning only, no code); creates folder from task name |
 | `"Approve task"` | After review of A-B-C | Move task `drafts/` → `active/` and start implementation |
 | `"Discard task"` | Draft no longer pursued | Move task `drafts/` → `archive/` + index in `memory.md` (no code) |
 | `"Complete task"` | Implementation done | Move task `active/` → `archive/` + index in `memory.md` |
@@ -76,19 +76,18 @@ Before writing any spec or code, load context in **exactly** this order. Stop at
 
 ### 2. Stage 1 — Draft (A-B-C Flow)
 
-**Trigger:** `"Create task [name]"` (kebab-case slug only — **do not** ask the user for a numeric ID)
+**Trigger:** `"Create task [name]"` (kebab-case slug derived from the name the user provides)
 
-1. **Assign the next folder prefix** (scan `drafts/`, `active/`, and `archive/`):
-   - Collect folders whose names match `^\d{2,}-` (e.g. `03-login`, `12-auth`).
-   - Parse the leading number; `next = max + 1`, or `0` if none exist.
-   - Zero-pad to **at least two digits**: `00`, `01`, … `99`, then `100`, `101`, …
-   - Create `.deepspec/specs/drafts/[NN]-[name]/` (first task → `00-auto-save-by-sound/`).
+1. **Create the task folder** from the name:
+   - Normalize to a kebab-case slug (e.g. `Auto Save by Sound` → `auto-save-by-sound`).
+   - If a folder with that name already exists in `drafts/`, `active/`, or `archive/`, stop and ask the user for a different name — do **not** auto-append numbers.
+   - Create `.deepspec/specs/drafts/[name]/` (e.g. `auto-save-by-sound/`).
 2. **NO CODE RULE:** strictly planning. Do **NOT** modify or create any application code (e.g., `src/`, `app/`, `lib/`).
 3. Generate the three A-B-C files using the templates in `templates/`:
    - `APPROACH.md` — see `templates/APPROACH.template.md`
    - `BUSINESS_CONTEXT.md` — see `templates/BUSINESS_CONTEXT.template.md`
    - `COMPLETION_REPORT.md` — see `templates/COMPLETION_REPORT.template.md` (initialized as `[PENDING]`)
-4. Tell the user the assigned folder name (e.g. `00-auto-save-by-sound`) and ask them to review; respond with `"Approve task"`, `"Discard task"`, or feedback.
+4. Tell the user the folder name (e.g. `auto-save-by-sound`) and ask them to review; respond with `"Approve task"`, `"Discard task"`, or feedback.
 
 ### 3. Stage Transition — The Gatekeeper
 
@@ -108,7 +107,7 @@ Use when the draft will not be implemented — scope changed, duplicate work, de
 2. Set `COMPLETION_REPORT.md` status to `[DISCARDED]` and record the discard date; add a short **Discard reason** if the user provided one.
 3. Append to `.deepspec/memory.md` under **Archived Tasks**:
    ```
-   [YYYY-MM-DD] [NN]: [discarded] <reason or one-line summary>. Ref: specs/archive/[NN]-[name]
+   [YYYY-MM-DD] [name]: [discarded] <reason or one-line summary>. Ref: specs/archive/[name]
    ```
 4. Announce: *"Draft discarded and archived. No implementation was started."*
 5. **Do not** write application code or mark acceptance criteria as done.
@@ -118,7 +117,7 @@ Use when the draft will not be implemented — scope changed, duplicate work, de
 Copy this checklist into the chat and keep it updated at every step:
 
 ```
-DeepSpec Progress [NN]-[name]:
+DeepSpec Progress [name]:
 - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
 - [ ] APPROACH step 1: <short description>
 - [ ] APPROACH step 2: <short description>
@@ -140,7 +139,7 @@ Rules during execution:
 1. Move the task folder from `active/` to `.deepspec/specs/archive/`.
 2. Append an index entry to `.deepspec/memory.md`:
    ```
-   [YYYY-MM-DD] [NN]: <one-line summary>. Ref: specs/archive/[NN]-[name]
+   [YYYY-MM-DD] [name]: <one-line summary>. Ref: specs/archive/[name]
    ```
 3. If the task surfaced any "gotchas" or reusable lessons, append them as concise notes under a `## Lessons` section in `memory.md`.
 

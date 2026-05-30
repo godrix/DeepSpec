@@ -1,4 +1,4 @@
-# [A] APPROACH — [NN]-[name]
+# [A] APPROACH — [name]
 
 > **The Blueprint.** Technical solution design and step-by-step execution plan.
 > Once this task enters `active/`, this file is **immutable** without re-approval.

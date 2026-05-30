@@ -1,4 +1,4 @@
-# [B] BUSINESS CONTEXT — [NN]-[name]
+# [B] BUSINESS CONTEXT — [name]
 
 > **The Goal.** Why this task exists and how we'll know it's done.
 > Acceptance Criteria here drive TDD in the Active stage.

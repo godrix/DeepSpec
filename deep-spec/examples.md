@@ -1,7 +1,7 @@
 # DeepSpec — End-to-End Examples
 
 Concrete walkthroughs showing the agent's expected behavior at each stage.
-The example task is `00-auto-save-by-sound` (auto-save a recording clip when a loud sound is detected). The `00-` prefix is assigned automatically on create.
+The example task is `auto-save-by-sound` (auto-save a recording clip when a loud sound is detected).
 
 ---
 
@@ -52,8 +52,8 @@ The example task is `00-auto-save-by-sound` (auto-save a recording clip when a l
 **Agent actions:**
 
 1. **Context Loading** (in order): reads open files, `AGENTS.md`, `memory.md`, scans `src/lib/BufferManager.ts` and `src/screens/RecordingScreen.tsx`.
-2. Scans `drafts/`, `active/`, and `archive/` — no existing `NN-*` folders → assigns prefix `00`.
-3. Creates `.deepspec/specs/drafts/00-auto-save-by-sound/` and generates the three files using the templates. Excerpts:
+2. Normalizes the name to kebab-case (`auto-save-by-sound`) and confirms no folder with that name exists in `drafts/`, `active/`, or `archive/`.
+3. Creates `.deepspec/specs/drafts/auto-save-by-sound/` and generates the three files using the templates. Excerpts:
 
 **`APPROACH.md`** (excerpt):
 ```markdown
@@ -79,7 +79,7 @@ The example task is `00-auto-save-by-sound` (auto-save a recording clip when a l
 
 **`COMPLETION_REPORT.md`**: initialized with `Status: [PENDING]`.
 
-4. Asks: *"A-B-C drafted in `00-auto-save-by-sound/`. Review the files and respond with `Approve task` to proceed."*
+4. Asks: *"A-B-C drafted in `auto-save-by-sound/`. Review the files and respond with `Approve task` to proceed."*
 
 ---
 
@@ -89,13 +89,13 @@ The example task is `00-auto-save-by-sound` (auto-save a recording clip when a l
 
 **Agent actions:**
 
-1. Moves folder: `.deepspec/specs/drafts/00-auto-save-by-sound/` → `.deepspec/specs/archive/` (skips `active/`).
+1. Moves folder: `.deepspec/specs/drafts/auto-save-by-sound/` → `.deepspec/specs/archive/` (skips `active/`).
 2. Updates `COMPLETION_REPORT.md`: `Status: [DISCARDED]`, discard date, optional reason.
 3. Appends to `.deepspec/memory.md`:
    ```markdown
-   [2026-05-28] [00]: [discarded] Product pivot — loud-peak auto-save deferred. Ref: specs/archive/00-auto-save-by-sound
+   [2026-05-28] auto-save-by-sound: [discarded] Product pivot — loud-peak auto-save deferred. Ref: specs/archive/auto-save-by-sound
    ```
-4. Confirms: *"Draft 00 discarded and archived. No implementation was started."*
+4. Confirms: *"Draft auto-save-by-sound discarded and archived. No implementation was started."*
 
 **When to use:** the plan is no longer valid, duplicated, or explicitly shelved. Do **not** use `"Complete task"` (that is only for tasks that reached `active/`).
 
@@ -107,11 +107,11 @@ The example task is `00-auto-save-by-sound` (auto-save a recording clip when a l
 
 **Agent actions:**
 
-1. `git mv .deepspec/specs/drafts/00-auto-save-by-sound .deepspec/specs/active/` (or equivalent file move).
+1. `git mv .deepspec/specs/drafts/auto-save-by-sound .deepspec/specs/active/` (or equivalent file move).
 2. Announces: *"Plan approved. Entering active execution. APPROACH.md is now immutable."*
 3. Posts the progress checklist:
    ```
-   DeepSpec Progress 00-auto-save-by-sound:
+   DeepSpec Progress auto-save-by-sound:
    - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
    - [ ] APPROACH step 1: Add AudioLevelMonitor module
    - [ ] APPROACH step 2: Wire into RecordingScreen
@@ -172,17 +172,17 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 **Agent actions:**
 
-1. Moves folder: `.deepspec/specs/active/00-auto-save-by-sound/` → `.deepspec/specs/archive/`.
+1. Moves folder: `.deepspec/specs/active/auto-save-by-sound/` → `.deepspec/specs/archive/`.
 2. Finalizes `COMPLETION_REPORT.md` (`Status: [DONE]`, fills test evidence, AC checklist).
 3. Appends to `.deepspec/memory.md`:
    ```markdown
-   [2026-05-11] 00: Auto-save clip on loud audio peak. Ref: specs/archive/00-auto-save-by-sound
+   [2026-05-11] auto-save-by-sound: Auto-save clip on loud audio peak. Ref: specs/archive/auto-save-by-sound
 
    ## Lessons
    - `Audio.recordingStatusListener` fires at ~10 Hz on Android; for peak detection
      prefer a native module if sub-100ms latency is required.
    ```
-4. Confirms to user: *"Task 00 archived and indexed in memory.md."*
+4. Confirms to user: *"Task auto-save-by-sound archived and indexed in memory.md."*
 
 ---
 
