@@ -1,6 +1,7 @@
 ---
 name: deep-spec
-description: Spec-Driven Development framework that guides tasks from intention to implementation through a 3-stage pipeline (drafts → active → archive) using the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Use when the user says "Initialize DeepSpec", "Create task", "Approve task", "Complete task", "Discard task", or mentions DeepSpec, spec-driven development, TDD planning, or the `.deepspec/` folder.
+version: 2.0.0
+description: Spec-Driven Development framework that guides tasks from intention to implementation through a 3-stage pipeline (drafts → active → archive) using the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Use when the user says "Initialize DeepSpec", "Create task", "Approve task", "Complete task", "Discard task", "Revise task", "Refinar tarefa", or mentions DeepSpec, Review Gate, spec-driven development, TDD planning, or the `.deepspec/` folder.
 ---
 
 # DeepSpec Framework (Spec-Driven Development)
@@ -9,7 +10,7 @@ description: Spec-Driven Development framework that guides tasks from intention 
 
 A 3-stage pipeline that turns intent into production code with auditable specs:
 
-`drafts/` → (Approve) → `active/` → (Complete) → `archive/`
+`drafts/` → (Approve) → `active/` (execute → **Review Gate**) → (Complete) → `archive/`
 
 `drafts/` → (Discard) → `archive/` — abandoned specs (scope changed, deferred, or no longer needed)
 
@@ -26,14 +27,16 @@ Each task carries 3 docs — the **A-B-C flow**:
 | `"Create task [name]"` | New work | Enter **Draft** stage (planning only, no code); creates folder from task name |
 | `"Approve task"` | After review of A-B-C | Move task `drafts/` → `active/` and start implementation |
 | `"Discard task"` | Draft no longer pursued | Move task `drafts/` → `archive/` + index in `memory.md` (no code) |
-| `"Complete task"` | Implementation done | Move task `active/` → `archive/` + index in `memory.md` |
+| `"Complete task"` | User approves at **Review Gate** (`[IN REVIEW]`) | Move task `active/` → `archive/` + index in `memory.md` |
+| `"Revise task"` / `"Refinar tarefa"` / feedback at Review Gate | User requests post-impl changes | Append `## Review Rounds` in `APPROACH.md`, execute delta, return to Review Gate |
 
 ## Agent Role
 
 You are a **Tech Lead and Autonomous Developer** executing DeepSpec. Your job is to:
 1. Refuse to code until a plan exists in `drafts/`.
-2. Refuse to deviate from the plan once it's in `active/` (immutability).
-3. Capture lessons learned in `memory.md` on completion (or index discarded drafts with `[discarded]`).
+2. Refuse to deviate from the `## Execution Plan` once it's in `active/` (immutability); post-impl changes go in `## Review Rounds`.
+3. Enter **Review Gate** automatically when execution is done; never archive without user approval at the gate.
+4. Capture lessons learned in `memory.md` on completion (or index discarded drafts with `[discarded]`).
 
 ---
 
@@ -95,7 +98,7 @@ Before writing any spec or code, load context in **exactly** this order. Stop at
 
 1. Move the task folder from `drafts/` to `active/`.
 2. Announce: *"Plan approved. Entering active execution."*
-3. Lock the contract: `APPROACH.md` is now **immutable** (see Operating Rules).
+3. Lock the contract: `## Execution Plan` in `APPROACH.md` is now **immutable** (see Operating Rules).
 
 ### 3b. Discard Draft (abandon without implementation)
 
@@ -125,18 +128,61 @@ DeepSpec Progress [name]:
 - [ ] All tests pass locally
 - [ ] Lint/typecheck clean
 - [ ] COMPLETION_REPORT.md updated
+- [ ] Review Gate: user approved (`Complete task`) or iteration complete
 ```
 
 Rules during execution:
 - **TDD First:** write tests based on `BUSINESS_CONTEXT.md` acceptance criteria **before** implementation.
-- **Atomic Execution:** follow `APPROACH.md` one step at a time. Do not jump ahead.
+- **Atomic Execution:** follow `APPROACH.md` `## Execution Plan` one step at a time. Do not jump ahead.
 - **Continuous C:** update `COMPLETION_REPORT.md` after each step with concrete technical details (files touched, decisions, snippets).
+- **Auto Review Gate:** when every checklist item above Review Gate is `[x]`, proceed to §4b immediately — do **not** offer or run `"Complete task"` yet.
+
+### 4b. Review Gate (mandatory before archive)
+
+**When:** all execution checklist items are `[x]` (task remains in `active/`).
+
+**Sub-states in `active/`:** Executing (`[IN PROGRESS]`) → Review Gate (`[IN REVIEW]`) → archived (`[DONE]` via `"Complete task"`).
+
+**On entering Review Gate (agent):**
+
+1. Set `COMPLETION_REPORT.md` → `Status: [IN REVIEW]`.
+2. Append a **Review submission** entry under `## Review Gate` in `COMPLETION_REPORT.md` (date, AC summary, `User decision: pending`).
+3. Announce: *"Execução concluída. Entrando no Review Gate — aguardando sua revisão."*
+4. Present a structured **review package**:
+   - AC checklist from `BUSINESS_CONTEXT.md` with test evidence
+   - Summary: done vs. original `## Execution Plan`
+   - Deviations from `COMPLETION_REPORT.md` / `## Deviations` in `APPROACH.md` (if any)
+   - Files touched (reference paths; no full dump)
+5. Ask: *"Responda com `Complete task` para arquivar, ou descreva o que precisa mudar para uma nova rodada."*
+
+**When the user requests changes** (free-form feedback, `"Revise task"`, or `"Refinar tarefa"`):
+
+1. Append to `APPROACH.md` under **`## Review Rounds`** (create section on first round) — see `templates/APPROACH.template.md`.
+2. Document: feedback summary, date, atomic **delta steps** (`R1.1`, `R1.2`, …).
+3. Execute delta steps (TDD when applicable); log each in `COMPLETION_REPORT.md` under `## Review Gate` → `### Round N`.
+4. Return to Review Gate automatically (updated review package; note *"Round N concluída"*).
+5. Repeat until the user says `"Complete task"`.
+
+**Rules:**
+
+- Do **not** start Review Gate until execution checklist is fully complete.
+- Do **not** archive on your own — only `"Complete task"` from the user closes the gate.
+- `## Execution Plan` stays immutable; only `## Review Rounds` holds post-impl deltas.
 
 ### 5. Stage 3 — Archive & Housekeeping
 
 **Trigger:** `"Complete task"`
 
-1. Move the task folder from `active/` to `.deepspec/specs/archive/`.
+**Guards (refuse if not met):**
+
+- Task must be in `active/` with `COMPLETION_REPORT.md` → `Status: [IN REVIEW]`.
+- If `[IN PROGRESS]`: *"Implementação ainda em andamento. Complete o checklist primeiro."*
+- If a Review Round is in progress (delta steps not done): *"Rodada de revisão em andamento. Finalize os ajustes ou cancele o feedback."*
+
+**Steps:**
+
+1. Set `COMPLETION_REPORT.md` → `Status: [DONE]`; record completion date; set Review Gate `User decision: approved`.
+2. Move the task folder from `active/` to `.deepspec/specs/archive/`.
 2. Append an index entry to `.deepspec/memory.md`:
    ```
    [YYYY-MM-DD] [name]: <one-line summary>. Ref: specs/archive/[name]
@@ -162,13 +208,16 @@ Adapt documentation density to task size to avoid ceremony:
 - **Zero Ceremony:** match docs to task size (see table above). Don't pad.
 - **No Hallucinations:** follow the Context Loading order strictly. Never invent file names, APIs, or behaviors.
 - **Context Isolation:** never proactively read `archive/` unless following a reference from `memory.md`.
-- **Immutability (Active):** once in `active/`, `APPROACH.md` is the contract. Any pivot requires:
-  1. Pause execution.
-  2. Update `APPROACH.md` with rationale.
-  3. Re-request `"Approve task"` from the user.
+- **Immutability (Active):** once in `active/`, `## Execution Plan` in `APPROACH.md` is the contract.
+  - **Deviation** (mid-flight discovery): pause, append `## Deviations` with rationale, re-request `"Approve task"`.
+  - **Review Round** (post-implementation, at Review Gate): append `## Review Rounds` with delta steps; no re-approval of the full plan.
+- **Review Gate:** mandatory human gate after execution; agent must not call `"Complete task"` or move to `archive/` without user approval at `[IN REVIEW]`.
 - **Glossary:**
   - *A-B-C flow* — the three task docs (APPROACH/BUSINESS_CONTEXT/COMPLETION_REPORT).
-  - *Atomic Execution* — one APPROACH step at a time, with tests first.
+  - *Atomic Execution* — one Execution Plan step at a time, with tests first.
+  - *Review Gate* — sub-state in `active/` after checklist complete; user approves with `"Complete task"` or requests changes.
+  - *Review Round* — one post-impl iteration documented in `## Review Rounds` and logged in `COMPLETION_REPORT.md`.
+  - *Deviation* — plan change discovered during execution (not at Review Gate).
   - *Discard* — archive a draft without approving or implementing it; indexed as `[discarded]` in `memory.md`.
   - *Segregated Memory* — `memory.md` only holds index + lessons, never full task content.
 
@@ -176,5 +225,6 @@ Adapt documentation density to task size to avoid ceremony:
 
 ## Additional Resources
 
+- Version history: see [CHANGELOG.md](CHANGELOG.md) (bump `version` in frontmatter when releasing).
 - Task doc templates: see [templates/APPROACH.template.md](templates/APPROACH.template.md), [templates/BUSINESS_CONTEXT.template.md](templates/BUSINESS_CONTEXT.template.md), [templates/COMPLETION_REPORT.template.md](templates/COMPLETION_REPORT.template.md).
 - End-to-end usage walkthrough: see [examples.md](examples.md).

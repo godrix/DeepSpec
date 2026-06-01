@@ -1,9 +1,9 @@
 # [C] COMPLETION REPORT — [name]
 
 > **The Evidence.** Updated continuously during Active execution.
-> Initialize as `[PENDING]`. Finalize on `"Complete task"`. Set `[DISCARDED]` on `"Discard task"` (draft only).
+> Initialize as `[PENDING]`. Set `[IN REVIEW]` when entering Review Gate. Finalize on `"Complete task"`. Set `[DISCARDED]` on `"Discard task"` (draft only).
 
-**Status:** `[PENDING]` | `[IN PROGRESS]` | `[DONE]` | `[DISCARDED]`
+**Status:** `[PENDING]` | `[IN PROGRESS]` | `[IN REVIEW]` | `[DONE]` | `[DISCARDED]`
 **Started:** YYYY-MM-DD
 **Completed:** YYYY-MM-DD
 
@@ -30,6 +30,18 @@ Append an entry after each APPROACH step (active execution only).
 
 ### Step 2 — <title>
 - …
+
+## Review Gate
+
+### Review submission — YYYY-MM-DD
+- **Submitted by:** agent (auto on checklist complete)
+- **AC summary:** AC-1 ✅, AC-2 ✅, …
+- **User decision:** pending | approved (`Complete task`) | changes requested (Round N)
+
+### Round N — YYYY-MM-DD
+- **Feedback:** …
+- **Delta steps executed:** R1.1, R1.2
+- **Outcome:** ✅ done | ⚠️ partial
 
 ## Test Evidence
 

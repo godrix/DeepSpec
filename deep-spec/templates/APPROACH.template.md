@@ -1,7 +1,7 @@
 # [A] APPROACH — [name]
 
 > **The Blueprint.** Technical solution design and step-by-step execution plan.
-> Once this task enters `active/`, this file is **immutable** without re-approval.
+> Once this task enters `active/`, `## Execution Plan` is **immutable**; post-impl changes use `## Review Rounds` at the Review Gate.
 
 ## Summary
 
@@ -54,6 +54,29 @@ Explicitly list what this task does **not** address to prevent scope creep.
 
 - …
 - …
+
+## Deviations
+
+> Mid-flight plan changes discovered during execution (before Review Gate).
+> Append-only; requires re-approval via `"Approve task"`.
+
+<!-- Add entries here only when execution discovers the plan must change. -->
+
+## Review Rounds
+
+> Post-implementation adjustments requested at the Review Gate.
+> The Execution Plan above remains the approved contract; only delta steps belong here.
+
+<!-- Populated after first user feedback during [IN REVIEW]. Remove this comment when used. -->
+
+<!--
+### Round 1 — YYYY-MM-DD
+**Feedback:** <summary of user request>
+**Delta steps:**
+1. **Step R1.1 — <verb + object>**
+   - Files: `…`
+   - Done when: …
+-->
 
 ## Diagram (Large tasks only)
 

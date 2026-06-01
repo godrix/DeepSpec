@@ -15,7 +15,7 @@ DeepSpec is a zero-ceremony, AI-native Spec-Driven Development (SDD) framework. 
 
 - **Context diet:** load information in a fixed order (open files → `AGENTS.md` → `memory.md` → specs → source → ask the user) to reduce noise and off-topic edits.
 - **Auto-discovery:** on *Initialize*, the agent scans the repo (manifests, tests, lint, CI, commit history) and generates `.deepspec/AGENTS.md` aligned with your stack and conventions.
-- **Three-stage pipeline:** `drafts` (planning, **no application code**) → `active` (execution with a locked plan) → `archive` (history and learnings). Drafts can also go straight to `archive` via **Discard** when the spec is abandoned.
+- **Three-stage pipeline:** `drafts` (planning, **no application code**) → `active` (execution with a locked plan, then **Review Gate**) → `archive` (history and learnings). Drafts can also go straight to `archive` via **Discard** when the spec is abandoned.
 - **TDD and atomic steps:** in `active/`, tests derived from acceptance criteria come **before** implementation; `APPROACH.md` is executed **one step at a time**.
 
 ## The A-B-C method
@@ -26,7 +26,7 @@ The A-B-C flow is DeepSpec's per-task documentation model. It exists so **intent
 |--------|------|------|
 | **A** | `APPROACH.md` | **How** — technical blueprint: steps, constraints, sequencing, and where code will land. After approval, it is the **immutable** execution contract. |
 | **B** | `BUSINESS_CONTEXT.md` | **Why** — goal, scope, stakeholders, and **acceptance criteria** mapped to verifiable outcomes. This is what tests and "done" must trace back to. |
-| **C** | `COMPLETION_REPORT.md` | **What happened** — living evidence during execution: files touched, decisions, failures, fixes, and final verification. Starts as a stub (e.g. `[PENDING]`) and is updated continuously through **active** work. |
+| **C** | `COMPLETION_REPORT.md` | **What happened** — living evidence during execution: files touched, decisions, failures, fixes, and final verification. Status flow: `[PENDING]` → `[IN PROGRESS]` → `[IN REVIEW]` (Review Gate) → `[DONE]`. |
 
 **Why A-B-C (not one mega-doc):**
 
@@ -44,6 +44,7 @@ Templates live under `deep-spec/templates/` and are instantiated for each task f
 ├── README.md
 └── deep-spec/             # skill payload (installed as .cursor/skills/deep-spec/)
     ├── SKILL.md
+    ├── CHANGELOG.md
     ├── examples.md
     └── templates/
         ├── APPROACH.template.md
@@ -87,11 +88,12 @@ Or install via CursorToys: **Initialize DeepSpec** downloads from [github.com/go
 1. **Initialize:** say *"Initialize DeepSpec"*. The agent creates `.deepspec/`, the pipeline folders, and generates `AGENTS.md` from the repo.
 2. **Create task:** *"Create task [name]"`* — creates a draft folder under `drafts/` named from the task (kebab-case); **no application code** in this stage.
 3. **Review (gatekeeper):** read `APPROACH.md` and `BUSINESS_CONTEXT.md`. Iterate in chat, approve, or discard.
-4. **Approve:** *"Approve task"* — moves the folder to `active/`; `APPROACH.md` becomes **immutable**; execution starts with TDD and a progress checklist.
+4. **Approve:** *"Approve task"* — moves the folder to `active/`; `## Execution Plan` in `APPROACH.md` becomes the **immutable** contract; execution starts with TDD and a progress checklist.
 5. **Discard (optional):** *"Discard task"* — moves a draft straight to `archive/` when the idea is abandoned or deferred; indexes `memory.md` as `[discarded]`; no code is written.
-6. **Complete:** *"Complete task"* — moves an `active/` task to `archive/` and updates `memory.md` with an index and learnings.
+6. **Review Gate (automatic):** when execution finishes, the agent sets `[IN REVIEW]`, presents a review package (ACs, files, deviations), and waits. You respond with *"Complete task"* to approve or describe changes for a **Review Round** (documented in `## Review Rounds` in `APPROACH.md`).
+7. **Complete:** *"Complete task"* — only after Review Gate approval; moves the `active/` task to `archive/` and updates `memory.md` with an index and learnings.
 
-Full activation commands and operating rules are in `deep-spec/SKILL.md`. For an end-to-end walkthrough, see `deep-spec/examples.md`.
+Full activation commands and operating rules are in `deep-spec/SKILL.md`. Version history: `deep-spec/CHANGELOG.md`. For an end-to-end walkthrough, see `deep-spec/examples.md`.
 
 ## License
 

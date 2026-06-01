@@ -108,7 +108,7 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 **Agent actions:**
 
 1. `git mv .deepspec/specs/drafts/auto-save-by-sound .deepspec/specs/active/` (or equivalent file move).
-2. Announces: *"Plan approved. Entering active execution. APPROACH.md is now immutable."*
+2. Announces: *"Plan approved. Entering active execution. Execution Plan is now immutable."*
 3. Posts the progress checklist:
    ```
    DeepSpec Progress auto-save-by-sound:
@@ -119,6 +119,7 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
    - [ ] All tests pass locally
    - [ ] Lint/typecheck clean
    - [ ] COMPLETION_REPORT.md updated
+   - [ ] Review Gate: user approved (`Complete task`) or iteration complete
    ```
 4. Starts Step 1 by writing the test file first (TDD).
 
@@ -166,15 +167,70 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 ---
 
+## Example 6b — Review Gate (direct approval)
+
+**Context:** execution checklist is 100% complete.
+
+**Agent actions:**
+
+1. Sets `COMPLETION_REPORT.md` → `Status: [IN REVIEW]`.
+2. Appends Review submission under `## Review Gate` with AC summary and `User decision: pending`.
+3. Announces Review Gate and posts review package:
+   ```
+   Execução concluída. Review Gate aberto.
+   - AC-1 ✅ — __tests__/AudioLevelMonitor.test.ts
+   - AC-2 ✅ — __tests__/RecordingScreen.test.ts
+   - Deviations: none
+   - Files: src/lib/AudioLevelMonitor.ts, src/screens/RecordingScreen.tsx, …
+   Responda com Complete task para arquivar, ou descreva ajustes.
+   ```
+4. **Does not** suggest or run `Complete task` on its own.
+
+**User:** `Complete task`
+
+**Agent:** proceeds to Example 6 (archive).
+
+---
+
+## Example 6c — Review Gate (iteration)
+
+**User (at Review Gate):** *"O threshold de -6 dBFS está agressivo; use -12 e adicione teste."*
+
+**Agent actions:**
+
+1. Appends to `APPROACH.md`:
+   ```markdown
+   ## Review Rounds
+
+   ### Round 1 — 2026-05-31
+   **Feedback:** Threshold too aggressive; change to -12 dBFS with test coverage.
+   **Delta steps:**
+   1. **Step R1.1 — Lower peak threshold to -12 dBFS**
+      - Files: `src/lib/AudioLevelMonitor.ts`, `__tests__/AudioLevelMonitor.test.ts`
+      - Done when: tests pass with -12 default.
+   ```
+2. Implements R1.1 (TDD).
+3. Logs in `COMPLETION_REPORT.md` → `### Round 1 — 2026-05-31` with outcome ✅.
+4. Re-opens Review Gate with updated package (*"Round 1 concluída"*).
+
+**User:** `Complete task`
+
+**Agent:** proceeds to Example 6 (archive).
+
+---
+
 ## Example 6 — Completion
+
+**Prerequisite:** task is in `active/` with `Status: [IN REVIEW]` and user said `Complete task`.
 
 **User:** `Complete task`
 
 **Agent actions:**
 
-1. Moves folder: `.deepspec/specs/active/auto-save-by-sound/` → `.deepspec/specs/archive/`.
-2. Finalizes `COMPLETION_REPORT.md` (`Status: [DONE]`, fills test evidence, AC checklist).
-3. Appends to `.deepspec/memory.md`:
+1. Sets `COMPLETION_REPORT.md` → `Status: [DONE]`; Review Gate `User decision: approved`.
+2. Moves folder: `.deepspec/specs/active/auto-save-by-sound/` → `.deepspec/specs/archive/`.
+3. Finalizes test evidence and AC checklist in `COMPLETION_REPORT.md`.
+4. Appends to `.deepspec/memory.md`:
    ```markdown
    [2026-05-11] auto-save-by-sound: Auto-save clip on loud audio peak. Ref: specs/archive/auto-save-by-sound
 
@@ -182,7 +238,7 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
    - `Audio.recordingStatusListener` fires at ~10 Hz on Android; for peak detection
      prefer a native module if sub-100ms latency is required.
    ```
-4. Confirms to user: *"Task auto-save-by-sound archived and indexed in memory.md."*
+5. Confirms to user: *"Task auto-save-by-sound archived and indexed in memory.md."*
 
 ---
 
@@ -205,3 +261,12 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 ❌ **Complete task on a draft:** `Complete task` only applies to `active/` tasks.
 ✅ Correct: use `"Discard task"` for drafts you will not implement.
+
+❌ **Skipping Review Gate:** agent runs `Complete task` right after the last APPROACH step.
+✅ Correct: set `[IN REVIEW]`, present review package, wait for user `Complete task` or feedback.
+
+❌ **Complete task while `[IN PROGRESS]`:** user tries to archive before execution finishes.
+✅ Correct: refuse — *"Implementação ainda em andamento. Complete o checklist primeiro."*
+
+❌ **Editing Execution Plan at Review Gate:** agent rewrites original steps for post-impl feedback.
+✅ Correct: append delta steps under `## Review Rounds` only.
