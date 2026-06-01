@@ -6,6 +6,12 @@ The active version lives in the `SKILL.md` frontmatter (`version` field).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This project follows [Semantic Versioning](https://semver.org/): **major** = breaking workflow/commands; **minor** = compatible features; **patch** = docs/clarifications only.
 
+## [2.0.1] — 2026-06-01
+
+### Fixed
+
+- `"Approve task"` now explicitly requires **same-turn** handoff to Active Execution (§4); agents must not stop at “active / ready for implementation”.
+
 ## [2.0.0] — 2026-05-31
 
 ### Added

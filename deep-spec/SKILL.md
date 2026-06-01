@@ -1,6 +1,6 @@
 ---
 name: deep-spec
-version: 2.0.0
+version: 2.0.1
 description: Spec-Driven Development framework that guides tasks from intention to implementation through a 3-stage pipeline (drafts → active → archive) using the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Use when the user says "Initialize DeepSpec", "Create task", "Approve task", "Complete task", "Discard task", "Revise task", "Refinar tarefa", or mentions DeepSpec, Review Gate, spec-driven development, TDD planning, or the `.deepspec/` folder.
 ---
 
@@ -34,9 +34,10 @@ Each task carries 3 docs — the **A-B-C flow**:
 
 You are a **Tech Lead and Autonomous Developer** executing DeepSpec. Your job is to:
 1. Refuse to code until a plan exists in `drafts/`.
-2. Refuse to deviate from the `## Execution Plan` once it's in `active/` (immutability); post-impl changes go in `## Review Rounds`.
-3. Enter **Review Gate** automatically when execution is done; never archive without user approval at the gate.
-4. Capture lessons learned in `memory.md` on completion (or index discarded drafts with `[discarded]`).
+2. On `"Approve task"`, **implement immediately** in the same turn (move to `active/` if needed, then run §4 — never stop at “ready for implementation”).
+3. Refuse to deviate from the `## Execution Plan` once it's in `active/` (immutability); post-impl changes go in `## Review Rounds`.
+4. Enter **Review Gate** automatically when execution is done; never archive without user approval at the gate.
+5. Capture lessons learned in `memory.md` on completion (or index discarded drafts with `[discarded]`).
 
 ---
 
@@ -94,11 +95,24 @@ Before writing any spec or code, load context in **exactly** this order. Stop at
 
 ### 3. Stage Transition — The Gatekeeper
 
-**Trigger:** `"Approve task"`
+**Trigger:** `"Approve task"` (also after draft feedback/revision, or to re-lock after a `## Deviations` update)
 
-1. Move the task folder from `drafts/` to `active/`.
-2. Announce: *"Plan approved. Entering active execution."*
-3. Lock the contract: `## Execution Plan` in `APPROACH.md` is now **immutable** (see Operating Rules).
+**Same-turn rule (mandatory):** approval is **not** a pause point. The user saying `"Approve task"` means *execute now*. After the steps below, **continue immediately** with §4 in the **same response** — do not end the turn waiting for “ok, implement” or similar.
+
+**Forbidden closing messages** (never stop here):
+- *"Spec is active and ready for implementation"*
+- *"Plan approved — let me know when to start"*
+- Any message that only moves/announces without writing tests or code per §4
+
+**Steps:**
+
+1. **Locate the task:** use the draft the user was just reviewing (latest in context). If ambiguous among multiple `drafts/`, ask once; otherwise proceed.
+2. **Move** (first approval only): `drafts/[name]/` → `active/[name]/`. If already in `active/` (re-approval after `## Deviations`), skip the move.
+3. Announce briefly: *"Plan approved. Entering active execution."* (one line; not a handoff).
+4. Lock the contract: `## Execution Plan` in `APPROACH.md` is **immutable** (see Operating Rules).
+5. **Hand off to §4 without stopping:** set `COMPLETION_REPORT.md` → `Status: [IN PROGRESS]`; post the DeepSpec Progress checklist; start TDD (tests from acceptance criteria, then first Execution Plan step).
+
+Work through the checklist until Review Gate (§4b) or a blocking question — not after step 3 alone.
 
 ### 3b. Discard Draft (abandon without implementation)
 
@@ -116,6 +130,8 @@ Use when the draft will not be implemented — scope changed, duplicate work, de
 5. **Do not** write application code or mark acceptance criteria as done.
 
 ### 4. Stage 2 — Active Execution
+
+**Entry:** always reached in the **same turn** as `"Approve task"` (§3 step 5), or when resuming after deviation re-approval. Do not defer to a follow-up message.
 
 Copy this checklist into the chat and keep it updated at every step:
 
@@ -205,6 +221,7 @@ Adapt documentation density to task size to avoid ceremony:
 
 ## Operating Rules
 
+- **Approve = execute:** `"Approve task"` always chains §3 → §4 in one turn; never treat approval as “plan locked, awaiting go”.
 - **Zero Ceremony:** match docs to task size (see table above). Don't pad.
 - **No Hallucinations:** follow the Context Loading order strictly. Never invent file names, APIs, or behaviors.
 - **Context Isolation:** never proactively read `archive/` unless following a reference from `memory.md`.

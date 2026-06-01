@@ -79,7 +79,7 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 
 **`COMPLETION_REPORT.md`**: initialized with `Status: [PENDING]`.
 
-4. Asks: *"A-B-C drafted in `auto-save-by-sound/`. Review the files and respond with `Approve task` to proceed."*
+4. Asks: *"A-B-C drafted in `auto-save-by-sound/`. Review the files and respond with `Approve task` to implement."*
 
 ---
 
@@ -101,15 +101,16 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 
 ---
 
-## Example 3 — Approval (Stage Transition)
+## Example 3 — Approval (Stage Transition + immediate execution)
 
-**User:** `Approve task`
+**User:** `Approve task` (often after reviewing the draft or applying feedback to A-B-C)
 
-**Agent actions:**
+**Agent actions (single turn — do not stop after the announce):**
 
 1. `git mv .deepspec/specs/drafts/auto-save-by-sound .deepspec/specs/active/` (or equivalent file move).
-2. Announces: *"Plan approved. Entering active execution. Execution Plan is now immutable."*
-3. Posts the progress checklist:
+2. Sets `COMPLETION_REPORT.md` → `Status: [IN PROGRESS]`.
+3. Announces briefly: *"Plan approved. Entering active execution. Execution Plan is now immutable."*
+4. Posts the progress checklist:
    ```
    DeepSpec Progress auto-save-by-sound:
    - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
@@ -121,7 +122,7 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
    - [ ] COMPLETION_REPORT.md updated
    - [ ] Review Gate: user approved (`Complete task`) or iteration complete
    ```
-4. Starts Step 1 by writing the test file first (TDD).
+5. **In the same message**, starts Step 1 by writing the test file first (TDD) and continues execution per §4 until Review Gate or a true blocker.
 
 ---
 
@@ -162,8 +163,9 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
    - Step 2 requires extending `BufferManager.exportClip(opts)` to accept
      `endTimestamp`. Adding sub-step 2a.
    ```
-3. Ask user: *"APPROACH needs an update (see diff). Respond with `Approve task` to re-lock the contract."*
-4. **Do not** silently change scope.
+3. Ask user: *"APPROACH needs an update (see diff). Respond with `Approve task` to re-lock and resume execution."*
+4. On `"Approve task"`: re-lock the contract and **continue §4 in the same turn** (do not only acknowledge).
+5. **Do not** silently change scope.
 
 ---
 
@@ -246,6 +248,9 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 ❌ **Skipping Draft:** agent jumps to editing `src/` after `"Create task"`.
 ✅ Correct: only A-B-C files are created until `"Approve task"`.
+
+❌ **Approve without executing:** agent moves to `active/` and says the spec is “ready for implementation” but writes no tests/code in that turn.
+✅ Correct: same turn as `"Approve task"` — checklist + `[IN PROGRESS]` + start TDD (Example 3).
 
 ❌ **Silent pivot:** agent changes implementation strategy without updating APPROACH.
 ✅ Correct: pause, update APPROACH, ask for re-approval.
