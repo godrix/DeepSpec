@@ -4,7 +4,6 @@ import type { Config } from '@docusaurus/types';
 const config: Config = {
   title: 'DeepSpec',
   tagline: 'Spec-Driven Development for AI agents',
-  favicon: 'img/favicon.png',
   url: 'https://godrix.github.io',
   baseUrl: '/DeepSpec/',
   organizationName: 'godrix',
