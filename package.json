@@ -1,0 +1,44 @@
+{
+  "name": "deep-spec",
+  "version": "3.0.0",
+  "description": "DeepSpec — Spec-Driven Development framework for AI agents. A 3-stage pipeline (drafts → active → archive) with A-B-C documentation flow.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "deep-spec": "lib/bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godrix/DeepSpec.git"
+  },
+  "homepage": "https://github.com/godrix/DeepSpec",
+  "bugs": {
+    "url": "https://github.com/godrix/DeepSpec/issues"
+  },
+  "author": "https://github.com/godrix",
+  "files": [
+    "lib",
+    "spec",
+    "deep-spec"
+  ],
+  "engines": {
+    "node": ">=20.x.x"
+  },
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "typecheck": "bash scripts/typecheck.sh",
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write .",
+    "pretest": "bash scripts/build.sh",
+    "test": "poku test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "esbuild": "^0.25.4",
+    "poku": "^4.4.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.22.4",
+    "typescript": "^5.8.3",
+    "yaml.min": "^1.0.0"
+  }
+}

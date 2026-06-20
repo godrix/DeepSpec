@@ -1,2 +1,10 @@
+# Dependencies
+node_modules/
+lib/
+
 # Cursor IDE (local agent rules, skills symlinks, etc.)
 .cursor/
+
+# Legacy
+idea/
+.deepspec/

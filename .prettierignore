@@ -1,0 +1,7 @@
+ideas/
+lib/
+node_modules/
+.deepspec/hooks/
+website/node_modules/
+website/build/
+website/.docusaurus/

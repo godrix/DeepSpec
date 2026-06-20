@@ -1,0 +1,43 @@
+# Workflow
+
+## 1. Initialize
+
+Say `"Initialize DeepSpec"` or run `/deepspec.init`. The agent scans your repo and writes `.deepspec/AGENTS.md`.
+
+## 2. Create task (Draft)
+
+`"Create task [name]"` → `/deepspec.create-task`
+
+Creates `.deepspec/specs/drafts/[slug]/` with A-B-C files. **No application code** in this stage.
+
+## 3. Approve + Execute
+
+`"Approve task"` → `/deepspec.approve-task`
+
+Moves to `active/` and **implements immediately** in the same turn with TDD.
+
+## 4. Review Gate
+
+When execution completes, status becomes `[IN REVIEW]`. The agent presents a review package. You respond with:
+
+- `"Complete task"` — archive
+- Feedback — triggers Review Rounds via `/deepspec.revise-task`
+
+## 5. Archive
+
+`"Complete task"` → `/deepspec.complete-task`
+
+Moves to `archive/` and indexes `memory.md`.
+
+## Discard
+
+`"Discard task"` archives a draft without implementation.
+
+## Hooks
+
+Deterministic operations via `.deepspec/hooks/`:
+
+- `list.mjs` — tasks by stage
+- `track.mjs` — register paths
+- `repair.mjs` — fix tracking after renames
+- `validate.mjs` — check A-B-C structure and status

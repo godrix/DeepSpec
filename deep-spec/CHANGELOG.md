@@ -6,6 +6,29 @@ The active version lives in the `SKILL.md` frontmatter (`version` field).
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This project follows [Semantic Versioning](https://semver.org/): **major** = breaking workflow/commands; **minor** = compatible features; **patch** = docs/clarifications only.
 
+## [3.0.0] — 2026-06-19
+
+### Added
+
+- **CLI:** `npx deep-spec init <agent>` scaffolds `.deepspec/` idempotently (templates, hooks, pipeline dirs, agent commands).
+- **Command split:** 8 operational prompts in `spec/commands/deepspec.*.md` (init, create-task, approve-task, discard-task, complete-task, revise-task, list, repair).
+- **Bootstrap templates:** `AGENTS.template.md`, `memory.template.md` plus existing A-B-C templates in `spec/templates/`.
+- **Hooks:** deterministic `list`, `track`, `repair`, `validate` compiled to `.deepspec/hooks/*.mjs`.
+- **Multi-agent providers:** registry + transform layer (skill, copilot-prompt, markdown, forge, gemini-toml, goose-yaml).
+- **Tests:** Poku e2e init + integration (frontmatter, tracking).
+- **CI:** GitHub Actions lint + test workflows.
+- **Docs:** root `AGENTS.md`, `architecture` skill, Docusaurus site in `website/`.
+- **Dogfooding:** `.deepspec/` in the DeepSpec repo with archived migration task.
+
+### Changed
+
+- `deep-spec/SKILL.md` is now a **thin orchestrator** (~80 lines) routing to `spec/commands/`; operational detail moved to commands.
+- Recommended install path is CLI init; manual copy of `deep-spec/` remains supported for retrocompat.
+
+### Preserved (unchanged semantics)
+
+- A-B-C flow, 3-stage pipeline, Review Gate, approve=execute same turn, task sizing, immutability of Execution Plan.
+
 ## [2.0.1] — 2026-06-01
 
 ### Fixed

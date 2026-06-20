@@ -21,26 +21,32 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
    ```
 3. Scans repo: `package.json`, `tsconfig.json`, `eslint.config.*`, `__tests__/`, etc.
 4. Writes `.deepspec/AGENTS.md` with detected stack:
+
    ```markdown
    # AGENTS.md
 
    ## Tech Stack
+
    - React Native (Expo SDK 53), TypeScript
    - Nitro Modules, react-native-vision-camera
    - ffmpeg-kit-react-native for media processing
 
    ## Coding Standards
+
    - ESLint + Prettier (config in `eslint.config.mjs`)
    - Path aliases via `tsconfig.json#paths`
 
    ## Testing
+
    - Jest with `@testing-library/react-native`
    - Test files in `__tests__/` mirroring `src/`
 
    ## Personas
+
    - Mobile RN Engineer (default)
    - Media/FFmpeg specialist (for buffer/encoding tasks)
    ```
+
 5. Presents `AGENTS.md` to user and waits for approval.
 
 ---
@@ -56,8 +62,10 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 3. Creates `.deepspec/specs/drafts/auto-save-by-sound/` and generates the three files using the templates. Excerpts:
 
 **`APPROACH.md`** (excerpt):
+
 ```markdown
 ## Execution Plan
+
 1. Step 1 — Add `AudioLevelMonitor` module
    - Files: `src/lib/AudioLevelMonitor.ts`
    - Tests added: AC-1, AC-2
@@ -69,17 +77,19 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 ```
 
 **`BUSINESS_CONTEXT.md`** (excerpt):
+
 ```markdown
 ## Acceptance Criteria
+
 - AC-1: Given the recording is active, when audio peak ≥ -6 dBFS for ≥ 200 ms,
-        then a 15s clip ending at the peak is exported.
+  then a 15s clip ending at the peak is exported.
 - AC-2: Given two peaks within 5s, when the second occurs, then a single clip
-        covering both peaks is exported (no double-save).
+  covering both peaks is exported (no double-save).
 ```
 
 **`COMPLETION_REPORT.md`**: initialized with `Status: [PENDING]`.
 
-4. Asks: *"A-B-C drafted in `auto-save-by-sound/`. Review the files and respond with `Approve task` to implement."*
+4. Asks: _"A-B-C drafted in `auto-save-by-sound/`. Review the files and respond with `Approve task` to implement."_
 
 ---
 
@@ -95,7 +105,7 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
    ```markdown
    [2026-05-28] auto-save-by-sound: [discarded] Product pivot — loud-peak auto-save deferred. Ref: specs/archive/auto-save-by-sound
    ```
-4. Confirms: *"Draft auto-save-by-sound discarded and archived. No implementation was started."*
+4. Confirms: _"Draft auto-save-by-sound discarded and archived. No implementation was started."_
 
 **When to use:** the plan is no longer valid, duplicated, or explicitly shelved. Do **not** use `"Complete task"` (that is only for tasks that reached `active/`).
 
@@ -109,7 +119,7 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 
 1. `git mv .deepspec/specs/drafts/auto-save-by-sound .deepspec/specs/active/` (or equivalent file move).
 2. Sets `COMPLETION_REPORT.md` → `Status: [IN PROGRESS]`.
-3. Announces briefly: *"Plan approved. Entering active execution. Execution Plan is now immutable."*
+3. Announces briefly: _"Plan approved. Entering active execution. Execution Plan is now immutable."_
 4. Posts the progress checklist:
    ```
    DeepSpec Progress auto-save-by-sound:
@@ -140,8 +150,10 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
    ...
    ```
 4. Appends to `COMPLETION_REPORT.md`:
+
    ```markdown
    ### Step 1 — Add AudioLevelMonitor module
+
    - Files touched: `src/lib/AudioLevelMonitor.ts`, `__tests__/AudioLevelMonitor.test.ts`
    - Tests added: AC-1, AC-2 (both passing)
    - Decisions: used a 50 ms ring-buffer over `Audio.recordingStatusListener` to compute peak dBFS.
@@ -158,12 +170,15 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 1. **Stop** execution immediately.
 2. Update `APPROACH.md`:
+
    ```markdown
    ## Deviations (added 2026-05-11)
+
    - Step 2 requires extending `BufferManager.exportClip(opts)` to accept
      `endTimestamp`. Adding sub-step 2a.
    ```
-3. Ask user: *"APPROACH needs an update (see diff). Respond with `Approve task` to re-lock and resume execution."*
+
+3. Ask user: _"APPROACH needs an update (see diff). Respond with `Approve task` to re-lock and resume execution."_
 4. On `"Approve task"`: re-lock the contract and **continue §4 in the same turn** (do not only acknowledge).
 5. **Do not** silently change scope.
 
@@ -196,24 +211,28 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 
 ## Example 6c — Review Gate (iteration)
 
-**User (at Review Gate):** *"O threshold de -6 dBFS está agressivo; use -12 e adicione teste."*
+**User (at Review Gate):** _"O threshold de -6 dBFS está agressivo; use -12 e adicione teste."_
 
 **Agent actions:**
 
 1. Appends to `APPROACH.md`:
+
    ```markdown
    ## Review Rounds
 
    ### Round 1 — 2026-05-31
+
    **Feedback:** Threshold too aggressive; change to -12 dBFS with test coverage.
    **Delta steps:**
+
    1. **Step R1.1 — Lower peak threshold to -12 dBFS**
       - Files: `src/lib/AudioLevelMonitor.ts`, `__tests__/AudioLevelMonitor.test.ts`
       - Done when: tests pass with -12 default.
    ```
+
 2. Implements R1.1 (TDD).
 3. Logs in `COMPLETION_REPORT.md` → `### Round 1 — 2026-05-31` with outcome ✅.
-4. Re-opens Review Gate with updated package (*"Round 1 concluída"*).
+4. Re-opens Review Gate with updated package (_"Round 1 concluída"_).
 
 **User:** `Complete task`
 
@@ -233,14 +252,17 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 2. Moves folder: `.deepspec/specs/active/auto-save-by-sound/` → `.deepspec/specs/archive/`.
 3. Finalizes test evidence and AC checklist in `COMPLETION_REPORT.md`.
 4. Appends to `.deepspec/memory.md`:
+
    ```markdown
    [2026-05-11] auto-save-by-sound: Auto-save clip on loud audio peak. Ref: specs/archive/auto-save-by-sound
 
    ## Lessons
+
    - `Audio.recordingStatusListener` fires at ~10 Hz on Android; for peak detection
      prefer a native module if sub-100ms latency is required.
    ```
-5. Confirms to user: *"Task auto-save-by-sound archived and indexed in memory.md."*
+
+5. Confirms to user: _"Task auto-save-by-sound archived and indexed in memory.md."_
 
 ---
 
@@ -271,7 +293,7 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 ✅ Correct: set `[IN REVIEW]`, present review package, wait for user `Complete task` or feedback.
 
 ❌ **Complete task while `[IN PROGRESS]`:** user tries to archive before execution finishes.
-✅ Correct: refuse — *"Implementação ainda em andamento. Complete o checklist primeiro."*
+✅ Correct: refuse — _"Implementação ainda em andamento. Complete o checklist primeiro."_
 
 ❌ **Editing Execution Plan at Review Gate:** agent rewrites original steps for post-impl feedback.
 ✅ Correct: append delta steps under `## Review Rounds` only.

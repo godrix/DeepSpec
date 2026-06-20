@@ -1,0 +1,215 @@
+export type CliCommand = 'init';
+
+export type ParsedCliArgs = {
+  command: CliCommand | undefined;
+  agent: string | undefined;
+  help: boolean;
+  version: boolean;
+};
+
+export type HookHandler = (args: string[]) => Promise<string> | string;
+
+export type TaskStage = 'draft' | 'active' | 'archive';
+
+export type CommandKey =
+  | 'init'
+  | 'create-task'
+  | 'approve-task'
+  | 'discard-task'
+  | 'complete-task'
+  | 'revise-task'
+  | 'list'
+  | 'repair';
+
+export type TemplateKey =
+  | 'approach'
+  | 'business-context'
+  | 'completion-report'
+  | 'agents'
+  | 'memory';
+
+export type BundledAsset = {
+  fileName: string;
+  contents: string;
+};
+
+export type BundledAssets = {
+  commands: Record<CommandKey, BundledAsset>;
+  templates: Record<TemplateKey, BundledAsset>;
+  hooks: BundledAsset[];
+  orchestrator: BundledAsset;
+};
+
+export type SpecTokenCount = {
+  relativePath: string;
+  tokens: number;
+};
+
+export type FileStatus = 'created' | 'skipped';
+
+export type FileOutcome = {
+  path: string;
+  status: FileStatus;
+};
+
+export type CommandWrite = {
+  relativePath: string;
+  contents: string;
+};
+
+export type CommandFormat =
+  | 'skill'
+  | 'copilot-prompt'
+  | 'markdown'
+  | 'forge'
+  | 'gemini-toml'
+  | 'goose-yaml';
+
+export type CommandLayout = 'skill' | 'file';
+
+export type AgentSpec = {
+  key: string;
+  displayName: string;
+  format: CommandFormat;
+  dir: string;
+  extension?: string;
+  layout?: CommandLayout;
+};
+
+export type AgentProvider = {
+  key: string;
+  displayName: string;
+  buildCommands: (assets: BundledAssets) => CommandWrite[];
+  orchestratorPath?: (assets: BundledAssets) => string | undefined;
+};
+
+export type AgentChoice = {
+  key: string;
+  displayName: string;
+};
+
+export type SelectOption = {
+  label: string;
+};
+
+export type SelectConfig = {
+  title: string;
+  hint: string;
+  options: SelectOption[];
+};
+
+export type KeypressEvent = {
+  name?: string;
+  sequence?: string;
+  ctrl?: boolean;
+};
+
+export type SelectAgentDeps = {
+  isInteractive: () => boolean;
+  promptForAgent: (agents: AgentChoice[]) => Promise<string>;
+};
+
+export type ScaffoldOptions = {
+  targetDir: string;
+  provider: AgentProvider;
+  assets: BundledAssets;
+  version: string;
+  now: Date;
+};
+
+export type ScaffoldResult = {
+  created: string[];
+  skipped: string[];
+  manifestPath: string;
+};
+
+export type ManifestInput = {
+  version: string;
+  agent: string;
+  now: Date;
+  files: string[];
+};
+
+export type ManifestData = {
+  name: 'deep-spec';
+  version: string;
+  agent: string;
+  createdAt: string;
+  files: string[];
+};
+
+export type TrackingEntry = {
+  name: string;
+  stage: TaskStage;
+  paths: string[];
+};
+
+export type TrackingMap = {
+  name: 'deep-spec';
+  entries: TrackingEntry[];
+};
+
+export type ObservedEntry = {
+  name: string;
+  stage: TaskStage;
+  paths: string[];
+};
+
+export type EntryClassification = 'new' | 'moved' | 'unchanged';
+
+export type ClassifiedEntry = {
+  name: string;
+  classification: EntryClassification;
+};
+
+export type UnresolvedReason = 'orphan' | 'renamed-candidate';
+
+export type UnresolvedEntry = {
+  name: string;
+  paths: string[];
+  stage: TaskStage;
+  reason: UnresolvedReason;
+};
+
+export type ReconcileResult = {
+  updatedMap: TrackingMap;
+  classifications: ClassifiedEntry[];
+  unresolved: UnresolvedEntry[];
+};
+
+export type TrackResult = {
+  updatedMap: TrackingMap;
+  classifications: ClassifiedEntry[];
+};
+
+export type ItemMatch = {
+  entry: TrackingEntry;
+  classification: ClassifiedEntry;
+};
+
+export type FoldState = {
+  map: TrackingMap;
+  classifications: ClassifiedEntry[];
+};
+
+export type TaskSummary = {
+  slug: string;
+  stage: TaskStage;
+  status: string;
+};
+
+export type ValidationResult = {
+  valid: boolean;
+  slug: string;
+  status: string;
+  errors: string[];
+};
+
+export type ListPayload = {
+  stage?: TaskStage;
+};
+
+export type ValidatePayload = {
+  slug: string;
+  expectStatus?: string;
+};
