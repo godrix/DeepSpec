@@ -23,6 +23,7 @@ const TEMPLATE_FILES: Record<TemplateKey, string> = {
   'completion-report': 'spec/templates/COMPLETION_REPORT.template.md',
   agents: 'spec/templates/AGENTS.template.md',
   memory: 'spec/templates/memory.template.md',
+  'open-questions': 'spec/templates/OPEN_QUESTIONS.template.md',
 };
 
 const HOOKS_DIR = 'lib/hooks';

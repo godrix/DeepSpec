@@ -1,6 +1,6 @@
 {
   "name": "deep-spec",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "DeepSpec — Spec-Driven Development framework for AI agents. A 3-stage pipeline (drafts → active → archive) with A-B-C documentation flow.",
   "license": "MIT",
   "type": "module",
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/godrix/DeepSpec.git"
+    "url": "git+https://github.com/godrix/deep-spec.git"
   },
-  "homepage": "https://github.com/godrix/DeepSpec",
+  "homepage": "https://github.com/godrix/deep-spec",
   "bugs": {
-    "url": "https://github.com/godrix/DeepSpec/issues"
+    "url": "https://github.com/godrix/deep-spec/issues"
   },
   "author": "https://github.com/godrix",
   "files": [

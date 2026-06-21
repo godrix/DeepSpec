@@ -5,9 +5,9 @@ const config: Config = {
   title: 'DeepSpec',
   tagline: 'Spec-Driven Development for AI agents',
   url: 'https://godrix.github.io',
-  baseUrl: '/DeepSpec/',
+  baseUrl: '/deep-spec/',
   organizationName: 'godrix',
-  projectName: 'DeepSpec',
+  projectName: 'deep-spec',
   onBrokenLinks: 'throw',
   i18n: { defaultLocale: 'en', locales: ['en'] },
   presets: [
@@ -36,7 +36,7 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          href: 'https://github.com/godrix/DeepSpec',
+          href: 'https://github.com/godrix/deep-spec',
           label: 'GitHub',
           position: 'right',
         },

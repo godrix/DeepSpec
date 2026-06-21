@@ -26,7 +26,8 @@ export type TemplateKey =
   | 'business-context'
   | 'completion-report'
   | 'agents'
-  | 'memory';
+  | 'memory'
+  | 'open-questions';
 
 export type BundledAsset = {
   fileName: string;

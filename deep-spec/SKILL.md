@@ -44,9 +44,9 @@ You are a **Tech Lead and Autonomous Developer**:
 1. Open files & terminal output
 2. `.deepspec/AGENTS.md`
 3. `.deepspec/memory.md`
-4. Specs in `active/` or `drafts/`
+4. Specs in `active/` or `drafts/` — including each task's `OPEN_QUESTIONS.md`
 5. Project source code
-6. Ask the user
+6. Ask the user (then append to the task's `OPEN_QUESTIONS.md` if still blocking)
 
 ## Task Sizing
 
@@ -66,6 +66,7 @@ You are a **Tech Lead and Autonomous Developer**:
   - **Deviation** (mid-flight): append `## Deviations`, re-request `"Approve task"`.
   - **Review Round** (post-impl): append `## Review Rounds` at Review Gate.
 - **Review Gate:** mandatory human approval before archive.
+- **Open Questions:** when blocked on a user decision, append to the **current task's** `OPEN_QUESTIONS.md` (same folder as A-B-C). Use `### Qn — title` entries with `**Status:** open` until answered; set `**Status:** answered` and fill `**Answer:**` when resolved. The file moves with the task across `drafts/` → `active/` → `archive/`.
 
 ## Glossary
 
@@ -74,6 +75,7 @@ You are a **Tech Lead and Autonomous Developer**:
 - _Review Round_ — one post-impl iteration in `## Review Rounds`
 - _Deviation_ — mid-flight plan change (not at Review Gate)
 - _Discard_ — archive draft without implementation
+- _Open Question_ — blocking decision in a task's `OPEN_QUESTIONS.md` for user response
 - _Segregated Memory_ — `memory.md` holds index + lessons only
 
 ## Resources

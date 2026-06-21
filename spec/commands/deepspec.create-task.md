@@ -36,11 +36,12 @@ You are creating a **draft task** under `.deepspec/specs/drafts/`. This phase is
 
 ### Step 3: Create the task folder
 
-Create `.deepspec/specs/drafts/[slug]/` and generate three files from templates:
+Create `.deepspec/specs/drafts/[slug]/` and generate four files from templates:
 
 - `APPROACH.md` — from `templates/APPROACH.template.md`
 - `BUSINESS_CONTEXT.md` — from `templates/BUSINESS_CONTEXT.template.md`
 - `COMPLETION_REPORT.md` — from `templates/COMPLETION_REPORT.template.md` with `Status: [PENDING]`
+- `OPEN_QUESTIONS.md` — from `templates/OPEN_QUESTIONS.template.md` (empty queue; agent fills when blocked)
 
 Fill templates according to **task sizing**:
 

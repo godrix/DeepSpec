@@ -75,4 +75,6 @@ deep-spec/         # orchestrator skill
 
 ## License
 
-MIT — see [LICENSE](https://github.com/godrix/DeepSpec/blob/main/LICENSE).
+MIT — see [LICENSE](https://github.com/godrix/deep-spec/blob/main/LICENSE).
+
+Docs: [godrix.github.io/deep-spec](https://godrix.github.io/deep-spec/)
