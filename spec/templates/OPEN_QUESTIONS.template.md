@@ -1,7 +1,7 @@
 # Open Questions — [name]
 
 > **Agent-maintained.** Add questions here when blocked on a user decision.  
-> The DeepSpec VS Code panel surfaces **open** items for the user to answer in chat.
+> The spec.md VS Code panel surfaces **open** items for the user to answer in chat.
 
 **Format:** use `### Qn — short title` for each question.  
 Set `**Status:** answered` and fill `**Answer:**` when resolved.

@@ -2,12 +2,12 @@ import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 
 const config: Config = {
-  title: 'DeepSpec',
+  title: 'spec.md',
   tagline: 'Spec-Driven Development for AI agents',
   url: 'https://godrix.github.io',
-  baseUrl: '/deep-spec/',
+  baseUrl: '/spec.md/',
   organizationName: 'godrix',
-  projectName: 'deep-spec',
+  projectName: 'spec.md',
   onBrokenLinks: 'throw',
   i18n: { defaultLocale: 'en', locales: ['en'] },
   presets: [
@@ -27,7 +27,7 @@ const config: Config = {
   ],
   themeConfig: {
     navbar: {
-      title: 'DeepSpec',
+      title: 'spec.md',
       items: [
         {
           type: 'docSidebar',
@@ -36,7 +36,7 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          href: 'https://github.com/godrix/deep-spec',
+          href: 'https://github.com/godrix/spec.md',
           label: 'GitHub',
           position: 'right',
         },
@@ -44,7 +44,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} DeepSpec contributors. MIT License.`,
+      copyright: `Copyright © ${new Date().getFullYear()} spec.md contributors. MIT License.`,
     },
   } satisfies Preset.ThemeConfig,
 };

@@ -3,15 +3,15 @@
 ## CLI (recommended)
 
 ```bash
-npx deep-spec init cursor-agent
+npx @godrix/spec.md init cursor-agent
 ```
 
-Replace `cursor-agent` with your agent key. Run `npx deep-spec --help` for the full list.
+Replace `cursor-agent` with your agent key. Run `npx @godrix/spec.md --help` for the full list.
 
 ## What init creates
 
 ```
-.deepspec/
+.spec.md/
 ├── AGENTS.md
 ├── memory.md
 ├── templates/
@@ -22,12 +22,12 @@ Replace `cursor-agent` with your agent key. Run `npx deep-spec --help` for the f
     └── archive/
 ```
 
-Agent commands are installed in the native directory (e.g. `.cursor/skills/deepspec.create-task/SKILL.md`).
+Agent commands are installed in the native directory (e.g. `.cursor/skills/spec.md.create-task/SKILL.md`).
 
 ## Manual install
 
-Copy `deep-spec/` to `.cursor/skills/deep-spec/` for the orchestrator skill only. For full command support, use the CLI.
+Copy `spec.md/` to `.cursor/skills/spec.md/` for the orchestrator skill only. For full command support, use the CLI.
 
 ## Re-init
 
-`npx deep-spec init` is idempotent — existing files are never overwritten.
+`npx @godrix/spec.md init` is idempotent — existing files are never overwritten.

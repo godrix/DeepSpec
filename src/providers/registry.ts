@@ -82,6 +82,11 @@ export const AGENT_PROVIDERS: Record<string, AgentProvider> =
     AGENT_SPECS.map((spec) => [spec.key, createProvider(spec)])
   );
 
+/** CLI aliases (e.g. `cursor` → `cursor-agent`). */
+const AGENT_ALIASES: Record<string, string> = {
+  cursor: 'cursor-agent',
+};
+
 export const listAgentKeys = (): string[] => Object.keys(AGENT_PROVIDERS);
 
 export const listAgentChoices = (): AgentChoice[] =>
@@ -91,7 +96,8 @@ export const listAgentChoices = (): AgentChoice[] =>
   }));
 
 export const getProvider = (key: string): AgentProvider => {
-  const provider = AGENT_PROVIDERS[key];
+  const resolved = AGENT_ALIASES[key] ?? key;
+  const provider = AGENT_PROVIDERS[resolved];
 
   if (!provider)
     throw new Error(

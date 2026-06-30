@@ -1,6 +1,7 @@
 import type { ValidationResult } from '../../types/core.js';
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { resolveSpecRoot } from '../../core/brand.js';
 import { parseStatus } from '../list/list.js';
 
 const VALID_STATUSES = [
@@ -16,17 +17,22 @@ const STAGE_FOLDERS = ['drafts', 'active', 'archive'] as const;
 const taskDir = (
   targetDir: string,
   slug: string,
-  stageFolder: string
-): string => join(targetDir, '.deepspec/specs', stageFolder, slug);
+  stageFolder: string,
+  rootDir: string
+): string => join(targetDir, rootDir, 'specs', stageFolder, slug);
 
 const findTaskFolder = async (
   targetDir: string,
-  slug: string
+  slug: string,
+  rootDir: string
 ): Promise<string | undefined> => {
   for (const stageFolder of STAGE_FOLDERS) {
     try {
       await access(
-        join(taskDir(targetDir, slug, stageFolder), 'COMPLETION_REPORT.md')
+        join(
+          taskDir(targetDir, slug, stageFolder, rootDir),
+          'COMPLETION_REPORT.md'
+        )
       );
 
       return stageFolder;
@@ -43,8 +49,9 @@ export const validateTask = async (
   slug: string,
   expectStatus?: string
 ): Promise<ValidationResult> => {
+  const rootDir = await resolveSpecRoot(targetDir);
   const errors: string[] = [];
-  const stageFolder = await findTaskFolder(targetDir, slug);
+  const stageFolder = await findTaskFolder(targetDir, slug, rootDir);
 
   if (!stageFolder)
     return {
@@ -54,7 +61,7 @@ export const validateTask = async (
       errors: [`Task "${slug}" not found in drafts, active, or archive`],
     };
 
-  const base = taskDir(targetDir, slug, stageFolder);
+  const base = taskDir(targetDir, slug, stageFolder, rootDir);
   const [reportContents, approachContents, businessContents] =
     await Promise.all([
       readFile(join(base, 'COMPLETION_REPORT.md'), 'utf8'),

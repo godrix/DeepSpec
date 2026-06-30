@@ -1,7 +1,8 @@
 import type { ManifestData, ManifestInput } from '../types/core.js';
+import { PACKAGE_NAME } from './brand.js';
 
 export const buildManifest = (input: ManifestInput): ManifestData => ({
-  name: 'deep-spec',
+  name: PACKAGE_NAME,
   version: input.version,
   agent: input.agent,
   createdAt: input.now.toISOString(),

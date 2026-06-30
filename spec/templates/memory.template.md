@@ -1,4 +1,4 @@
-# DeepSpec Memory
+# spec.md Memory
 
 > Index of archived tasks and reusable lessons. Never store full task content here — only index entries and concise notes.
 

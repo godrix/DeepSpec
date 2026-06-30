@@ -9,10 +9,13 @@ import type {
 } from '../types/core.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import {
+  LEGACY_ROOT_DIR,
+  PACKAGE_NAME,
+  ROOT_DIR,
+  resolveSpecRoot,
+} from './brand.js';
 import { ensureDir, writeFileOverwrite } from './fs-actions.js';
-
-const TRACKING_DIR = '.deepspec';
-const TRACKING_PATH = '.deepspec/tracking.json';
 
 const STAGES: TaskStage[] = ['draft', 'active', 'archive'];
 
@@ -20,7 +23,7 @@ export const isTaskStage = (value: string): value is TaskStage =>
   STAGES.includes(value as TaskStage);
 
 export const emptyTrackingMap = (): TrackingMap => ({
-  name: 'deep-spec',
+  name: PACKAGE_NAME,
   entries: [],
 });
 
@@ -79,7 +82,7 @@ export const foldEntries = (
 
       return {
         map: {
-          name: 'deep-spec',
+          name: PACKAGE_NAME,
           entries: upsert(state.map.entries, match.entry),
         },
         classifications: [...state.classifications, match.classification],
@@ -141,19 +144,35 @@ const parseTrackingMap = (raw: string): TrackingMap => {
     .map(normalizeEntry)
     .filter((entry): entry is TrackingEntry => entry !== undefined);
 
-  return { name: 'deep-spec', entries };
+  return { name: PACKAGE_NAME, entries };
+};
+
+const readTrackingFile = async (
+  targetDir: string,
+  rootDir: string
+): Promise<TrackingMap | undefined> => {
+  try {
+    const raw = await readFile(
+      join(targetDir, rootDir, 'tracking.json'),
+      'utf8'
+    );
+
+    return parseTrackingMap(raw);
+  } catch {
+    return undefined;
+  }
 };
 
 export const loadTrackingMap = async (
   targetDir: string
 ): Promise<TrackingMap> => {
-  try {
-    const raw = await readFile(join(targetDir, TRACKING_PATH), 'utf8');
+  const primary = await readTrackingFile(targetDir, ROOT_DIR);
+  if (primary) return primary;
 
-    return parseTrackingMap(raw);
-  } catch {
-    return emptyTrackingMap();
-  }
+  const legacy = await readTrackingFile(targetDir, LEGACY_ROOT_DIR);
+  if (legacy) return legacy;
+
+  return emptyTrackingMap();
 };
 
 export const serializeTrackingMap = (map: TrackingMap): string =>
@@ -163,9 +182,9 @@ export const writeTrackingMap = async (
   targetDir: string,
   map: TrackingMap
 ): Promise<void> => {
-  await ensureDir(join(targetDir, TRACKING_DIR));
-  await writeFileOverwrite(
-    join(targetDir, TRACKING_PATH),
-    serializeTrackingMap(map)
-  );
+  const rootDir = await resolveSpecRoot(targetDir);
+  const trackingPath = join(targetDir, rootDir, 'tracking.json');
+
+  await ensureDir(join(targetDir, rootDir));
+  await writeFileOverwrite(trackingPath, serializeTrackingMap(map));
 };

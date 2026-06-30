@@ -1,20 +1,24 @@
 import type { ScaffoldResult } from '../types/core.js';
+import { PRODUCT_NAME } from '../core/brand.js';
+import { headerText } from './banner.js';
+
+export const versionText = (version: string): string =>
+  [headerText(), version].join('\n');
 
 export const helpText = (agentKeys: string[]): string =>
   [
-    'DeepSpec: Spec-Driven Development for AI agents.',
-    '',
+    headerText(),
     'Usage:',
-    '  npx deep-spec init <agent>',
+    `  npx ${PRODUCT_NAME} init <agent>`,
     '',
     'Commands:',
-    '  init <agent>      Scaffold DeepSpec into the current project',
+    `  init <agent>      Scaffold ${PRODUCT_NAME} into the current project`,
     '',
     'Options:',
     '  -h, --help        Show this help',
     '  -v, --version     Show the version',
     '',
-    `Available agents: ${agentKeys.join(', ')}`,
+    `Available agents: ${agentKeys.join(', ')} (alias: cursor → cursor-agent)`,
   ].join('\n');
 
 export const noAgentSelected = (agentKeys: string[]): string => {
@@ -23,7 +27,7 @@ export const noAgentSelected = (agentKeys: string[]): string => {
   return [
     'No agent selected.',
     `Pass an agent (available: ${agentKeys.join(', ')}).`,
-    `Example: npx deep-spec init ${first}`,
+    `Example: npx ${PRODUCT_NAME} init ${first}`,
   ].join('\n');
 };
 
@@ -47,9 +51,9 @@ export const summaryLine = (
   result: ScaffoldResult
 ): string => {
   if (result.created.length === 0)
-    return `DeepSpec is already initialized for ${agentDisplayName}: nothing to do.`;
+    return `${PRODUCT_NAME} is already initialized for ${agentDisplayName}: nothing to do.`;
 
-  return `DeepSpec initialized for ${agentDisplayName}: ${result.created.length} created, ${result.skipped.length} skipped.`;
+  return `${PRODUCT_NAME} initialized for ${agentDisplayName}: ${result.created.length} created, ${result.skipped.length} skipped.`;
 };
 
 export const nextSteps = (agentDisplayName: string): string =>
@@ -57,8 +61,8 @@ export const nextSteps = (agentDisplayName: string): string =>
     '',
     'Next steps:',
     `  1. Open ${agentDisplayName} in this project.`,
-    '  2. Say "Initialize DeepSpec" or run /deepspec.init to generate AGENTS.md.',
-    '  3. Run /deepspec.create-task to plan your first task.',
+    `  2. Say "Initialize ${PRODUCT_NAME}" or run /spec.md.init to generate AGENTS.md.`,
+    '  3. Run /spec.md.create-task to plan your first task.',
     '  4. Review A-B-C docs, then "Approve task" to implement with TDD.',
     '  5. Complete at Review Gate with "Complete task".',
   ].join('\n');

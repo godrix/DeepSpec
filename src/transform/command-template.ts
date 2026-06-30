@@ -1,7 +1,8 @@
 import type { BundledAsset, CommandFormat, CommandKey } from '../types/core.js';
+import { COMMAND_PREFIX, PRODUCT_NAME, ROOT_DIR } from '../core/brand.js';
 
 const ARGUMENT_HINTS: Record<CommandKey, string> = {
-  init: 'Leave empty to bootstrap DeepSpec in the current project',
+  init: `Leave empty to bootstrap ${PRODUCT_NAME} in the current project`,
   'create-task':
     'Task name, affected paths, or a description of the work to plan',
   'approve-task': 'Optional task slug if multiple drafts exist',
@@ -10,14 +11,18 @@ const ARGUMENT_HINTS: Record<CommandKey, string> = {
   'revise-task': 'Feedback describing post-implementation changes',
   list: 'Optional stage filter: drafts, active, or archive',
   repair: 'Optional task slug to repair tracking for',
+  'map-codebase': 'Optional paths to prioritize in the repository map',
+  'diagram-architecture':
+    'Optional task slug or diagram focus (sequence, components, data-flow)',
+  interview: 'Optional task slug or answer to the previous interview question',
 };
 
 const FRONTMATTER_PATTERN = /^---\n([\s\S]*?)\n---\n/;
 
-const skillName = (key: CommandKey): string => `deepspec.${key}`;
+const skillName = (key: CommandKey): string => `${COMMAND_PREFIX}.${key}`;
 
 const rewriteTemplatePath = (body: string): string =>
-  body.replaceAll('`templates/', '`.deepspec/templates/');
+  body.replaceAll('`templates/', `\`${ROOT_DIR}/templates/`);
 
 const hasField = (frontmatter: string, field: string): boolean =>
   frontmatter

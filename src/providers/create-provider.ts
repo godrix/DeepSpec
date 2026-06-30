@@ -5,10 +5,11 @@ import type {
   CommandKey,
   CommandWrite,
 } from '../types/core.js';
+import { COMMAND_PREFIX, ORCHESTRATOR_DIR } from '../core/brand.js';
 import { transformCommand } from '../transform/command-template.js';
 
 const commandPath = (spec: AgentSpec, key: CommandKey): string => {
-  const name = `deepspec.${key}`;
+  const name = `${COMMAND_PREFIX}.${key}`;
 
   if ((spec.layout ?? 'file') === 'skill')
     return `${spec.dir}/${name}/SKILL.md`;
@@ -19,7 +20,7 @@ const commandPath = (spec: AgentSpec, key: CommandKey): string => {
 const orchestratorPath = (spec: AgentSpec): string | undefined => {
   if ((spec.layout ?? 'file') !== 'skill') return undefined;
 
-  return `${spec.dir}/deep-spec/SKILL.md`;
+  return `${spec.dir}/${ORCHESTRATOR_DIR}/SKILL.md`;
 };
 
 export const createProvider = (spec: AgentSpec): AgentProvider => ({

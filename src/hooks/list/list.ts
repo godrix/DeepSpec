@@ -1,12 +1,15 @@
 import type { TaskStage, TaskSummary } from '../../types/core.js';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { resolveSpecRoot } from '../../core/brand.js';
 
-const STAGE_DIRS: Record<TaskStage, string> = {
-  draft: '.deepspec/specs/drafts',
-  active: '.deepspec/specs/active',
-  archive: '.deepspec/specs/archive',
-};
+const stageDirs = (
+  rootDir: string
+): Record<TaskStage, string> => ({
+  draft: `${rootDir}/specs/drafts`,
+  active: `${rootDir}/specs/active`,
+  archive: `${rootDir}/specs/archive`,
+});
 
 const STATUS_PATTERN =
   /\*\*Status:\*\*\s*`(\[PENDING\]|\[IN PROGRESS\]|\[IN REVIEW\]|\[DONE\]|\[DISCARDED\])`/;
@@ -19,9 +22,10 @@ export const parseStatus = (contents: string): string => {
 
 const listStageTasks = async (
   targetDir: string,
-  stage: TaskStage
+  stage: TaskStage,
+  rootDir: string
 ): Promise<TaskSummary[]> => {
-  const stagePath = join(targetDir, STAGE_DIRS[stage]);
+  const stagePath = join(targetDir, stageDirs(rootDir)[stage]);
 
   try {
     const entries = await readdir(stagePath, { withFileTypes: true });
@@ -63,12 +67,13 @@ export const listTasks = async (
   targetDir: string,
   stageFilter?: TaskStage
 ): Promise<TaskSummary[]> => {
+  const rootDir = await resolveSpecRoot(targetDir);
   const stages: TaskStage[] = stageFilter
     ? [stageFilter]
     : ['draft', 'active', 'archive'];
 
   const nested = await Promise.all(
-    stages.map((stage) => listStageTasks(targetDir, stage))
+    stages.map((stage) => listStageTasks(targetDir, stage, rootDir))
   );
 
   return nested.flat();

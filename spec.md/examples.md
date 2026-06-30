@@ -1,4 +1,4 @@
-# DeepSpec — End-to-End Examples
+# spec.md — End-to-End Examples
 
 Concrete walkthroughs showing the agent's expected behavior at each stage.
 The example task is `auto-save-by-sound` (auto-save a recording clip when a loud sound is detected).
@@ -7,20 +7,20 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 
 ## Example 1 — Initialization
 
-**User:** `Initialize DeepSpec`
+**User:** `Initialize spec.md`
 
 **Agent actions:**
 
-1. Detects `.deepspec/` is missing.
+1. Detects `.spec.md/` is missing.
 2. Creates scaffold:
    ```
-   .deepspec/
+   .spec.md/
    ├── AGENTS.md
    ├── memory.md
    └── specs/{drafts,active,archive}/
    ```
 3. Scans repo: `package.json`, `tsconfig.json`, `eslint.config.*`, `__tests__/`, etc.
-4. Writes `.deepspec/AGENTS.md` with detected stack:
+4. Writes `.spec.md/AGENTS.md` with detected stack:
 
    ```markdown
    # AGENTS.md
@@ -59,7 +59,7 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 
 1. **Context Loading** (in order): reads open files, `AGENTS.md`, `memory.md`, scans `src/lib/BufferManager.ts` and `src/screens/RecordingScreen.tsx`.
 2. Normalizes the name to kebab-case (`auto-save-by-sound`) and confirms no folder with that name exists in `drafts/`, `active/`, or `archive/`.
-3. Creates `.deepspec/specs/drafts/auto-save-by-sound/` and generates the three files using the templates. Excerpts:
+3. Creates `.spec.md/specs/drafts/auto-save-by-sound/` and generates the three files using the templates. Excerpts:
 
 **`APPROACH.md`** (excerpt):
 
@@ -99,9 +99,9 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 
 **Agent actions:**
 
-1. Moves folder: `.deepspec/specs/drafts/auto-save-by-sound/` → `.deepspec/specs/archive/` (skips `active/`).
+1. Moves folder: `.spec.md/specs/drafts/auto-save-by-sound/` → `.spec.md/specs/archive/` (skips `active/`).
 2. Updates `COMPLETION_REPORT.md`: `Status: [DISCARDED]`, discard date, optional reason.
-3. Appends to `.deepspec/memory.md`:
+3. Appends to `.spec.md/memory.md`:
    ```markdown
    [2026-05-28] auto-save-by-sound: [discarded] Product pivot — loud-peak auto-save deferred. Ref: specs/archive/auto-save-by-sound
    ```
@@ -117,12 +117,12 @@ The example task is `auto-save-by-sound` (auto-save a recording clip when a loud
 
 **Agent actions (single turn — do not stop after the announce):**
 
-1. `git mv .deepspec/specs/drafts/auto-save-by-sound .deepspec/specs/active/` (or equivalent file move).
+1. `git mv .spec.md/specs/drafts/auto-save-by-sound .spec.md/specs/active/` (or equivalent file move).
 2. Sets `COMPLETION_REPORT.md` → `Status: [IN PROGRESS]`.
 3. Announces briefly: _"Plan approved. Entering active execution. Execution Plan is now immutable."_
 4. Posts the progress checklist:
    ```
-   DeepSpec Progress auto-save-by-sound:
+   spec.md Progress auto-save-by-sound:
    - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
    - [ ] APPROACH step 1: Add AudioLevelMonitor module
    - [ ] APPROACH step 2: Wire into RecordingScreen
@@ -249,9 +249,9 @@ While executing Step 2, the agent discovers `BufferManager.exportClip()` doesn't
 **Agent actions:**
 
 1. Sets `COMPLETION_REPORT.md` → `Status: [DONE]`; Review Gate `User decision: approved`.
-2. Moves folder: `.deepspec/specs/active/auto-save-by-sound/` → `.deepspec/specs/archive/`.
+2. Moves folder: `.spec.md/specs/active/auto-save-by-sound/` → `.spec.md/specs/archive/`.
 3. Finalizes test evidence and AC checklist in `COMPLETION_REPORT.md`.
-4. Appends to `.deepspec/memory.md`:
+4. Appends to `.spec.md/memory.md`:
 
    ```markdown
    [2026-05-11] auto-save-by-sound: Auto-save clip on loud audio peak. Ref: specs/archive/auto-save-by-sound

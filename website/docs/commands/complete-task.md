@@ -2,7 +2,7 @@
 
 Archive a task after Review Gate approval.
 
-**Trigger:** `"Complete task"` or `/deepspec.complete-task`
+**Trigger:** `"Complete task"` or `/spec.md.complete-task`
 
 **Requires:** `COMPLETION_REPORT.md` status `[IN REVIEW]`
 

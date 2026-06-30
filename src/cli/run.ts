@@ -3,12 +3,14 @@ import { stdout } from 'node:process';
 import { loadAssets, loadVersion } from '../core/assets.js';
 import { scaffold } from '../core/scaffold.js';
 import { listAgentKeys } from '../providers/registry.js';
+import { headerText } from './banner.js';
 import {
   createdLine,
   helpText,
   nextSteps,
   skippedLine,
   summaryLine,
+  versionText,
 } from './messages.js';
 import { selectAgent } from './select-agent.js';
 
@@ -21,6 +23,8 @@ const runInit = async (
   cwd: string,
   packageRoot: URL
 ): Promise<void> => {
+  print(headerText());
+
   const provider = await selectAgent(args.agent);
   const [assets, version] = await Promise.all([
     loadAssets(packageRoot),
@@ -50,7 +54,7 @@ export const run = async (
   packageRoot: URL
 ): Promise<void> => {
   if (args.version) {
-    print(await loadVersion(packageRoot));
+    print(versionText(await loadVersion(packageRoot)));
 
     return;
   }

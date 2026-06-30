@@ -8,6 +8,7 @@ lib/
 # Legacy
 idea/
 .deepspec/
+.spec.md/
 
 # Website (Docusaurus)
 website/node_modules/

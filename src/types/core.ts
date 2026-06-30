@@ -19,7 +19,10 @@ export type CommandKey =
   | 'complete-task'
   | 'revise-task'
   | 'list'
-  | 'repair';
+  | 'repair'
+  | 'map-codebase'
+  | 'diagram-architecture'
+  | 'interview';
 
 export type TemplateKey =
   | 'approach'
@@ -27,7 +30,8 @@ export type TemplateKey =
   | 'completion-report'
   | 'agents'
   | 'memory'
-  | 'open-questions';
+  | 'open-questions'
+  | 'architecture';
 
 export type BundledAsset = {
   fileName: string;
@@ -132,7 +136,7 @@ export type ManifestInput = {
 };
 
 export type ManifestData = {
-  name: 'deep-spec';
+  name: 'spec.md';
   version: string;
   agent: string;
   createdAt: string;
@@ -146,7 +150,7 @@ export type TrackingEntry = {
 };
 
 export type TrackingMap = {
-  name: 'deep-spec';
+  name: 'spec.md';
   entries: TrackingEntry[];
 };
 

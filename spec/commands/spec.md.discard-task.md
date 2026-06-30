@@ -21,7 +21,7 @@ You are abandoning a **draft** without implementation.
 
 ### Step 2: Move to archive
 
-- Move `.deepspec/specs/drafts/[slug]/` → `.deepspec/specs/archive/[slug]/` (never through `active/`).
+- Move `.spec.md/specs/drafts/[slug]/` → `.spec.md/specs/archive/[slug]/` (never through `active/`).
 
 ### Step 3: Update COMPLETION_REPORT
 
@@ -40,7 +40,7 @@ Append under **Archived Tasks** (reconcile — do not duplicate the same slug):
 ### Step 5: Update tracking
 
 ```bash
-node ./.deepspec/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"archive","paths":[]}]}'
+node ./.spec.md/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"archive","paths":[]}]}'
 ```
 
 ### Step 6: Announce

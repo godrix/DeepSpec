@@ -4,8 +4,8 @@ import { isTaskStage } from '../../core/tracking.js';
 import { formatTaskList, listTasks } from './list.js';
 
 /**
- * @example node ./.deepspec/hooks/list.mjs '{}'
- * @example node ./.deepspec/hooks/list.mjs '{"stage":"active"}'
+ * @example node ./.spec.md/hooks/list.mjs '{}'
+ * @example node ./.spec.md/hooks/list.mjs '{"stage":"active"}'
  */
 await runHook(import.meta.url, async (args) => {
   const raw = args[0] ?? '{}';

@@ -43,4 +43,4 @@ If entering Review Gate for the first time (not a revision round):
 
 - Do **not** start Review Gate until execution checklist is fully complete.
 - `## Execution Plan` stays immutable; only `## Review Rounds` holds post-impl deltas.
-- Mid-flight plan changes (before Review Gate) belong in `## Deviations` and require re-approval via `/deepspec.approve-task`.
+- Mid-flight plan changes (before Review Gate) belong in `## Deviations` and require re-approval via `/spec.md.approve-task`.

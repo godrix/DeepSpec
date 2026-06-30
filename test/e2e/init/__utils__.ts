@@ -17,7 +17,7 @@ const baseArgs: ParsedCliArgs = {
 };
 
 export const newWorkspace = async (): Promise<string> => {
-  const workspace = await mkdtemp(join(tmpdir(), 'deep-spec-'));
+  const workspace = await mkdtemp(join(tmpdir(), 'spec.md-'));
 
   workspaces.push(workspace);
   return workspace;

@@ -1,0 +1,33 @@
+import { access } from 'node:fs/promises';
+import { join } from 'node:path';
+
+export const PRODUCT_NAME = 'spec.md';
+export const ROOT_DIR = '.spec.md';
+export const LEGACY_ROOT_DIR = '.deepspec';
+export const PACKAGE_NAME = 'spec.md';
+export const COMMAND_PREFIX = 'spec.md';
+export const ORCHESTRATOR_DIR = 'spec.md';
+
+export const commandName = (key: string): string => `${COMMAND_PREFIX}.${key}`;
+
+export const resolveSpecRoot = async (
+  workspacePath: string
+): Promise<string> => {
+  try {
+    await access(join(workspacePath, ROOT_DIR));
+    return ROOT_DIR;
+  } catch {
+    try {
+      await access(join(workspacePath, LEGACY_ROOT_DIR));
+      return LEGACY_ROOT_DIR;
+    } catch {
+      return ROOT_DIR;
+    }
+  }
+};
+
+export const trackingPath = (workspacePath: string, rootDir: string): string =>
+  join(workspacePath, rootDir, 'tracking.json');
+
+export const specsDir = (workspacePath: string, rootDir: string): string =>
+  join(workspacePath, rootDir, 'specs');

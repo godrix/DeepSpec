@@ -2,7 +2,7 @@
 
 Create a draft task with A-B-C documentation.
 
-**Trigger:** `"Create task [name]"` or `/deepspec.create-task`
+**Trigger:** `"Create task [name]"` or `/spec.md.create-task`
 
 - Normalizes name to kebab-case slug
 - Generates `APPROACH.md`, `BUSINESS_CONTEXT.md`, `COMPLETION_REPORT.md`

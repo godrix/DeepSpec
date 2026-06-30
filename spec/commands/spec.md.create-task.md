@@ -1,5 +1,5 @@
 ---
-description: Create a new DeepSpec task in drafts/ with the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Planning only — no application code. Optionally scope by task name, affected paths, or a free-form description.
+description: Create a new spec.md task in drafts/ with the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Planning only — no application code. Optionally scope by task name, affected paths, or a free-form description.
 ---
 
 ## User Input
@@ -17,7 +17,7 @@ The User Input decides scope:
 
 ## Outline
 
-You are creating a **draft task** under `.deepspec/specs/drafts/`. This phase is **planning only** — do **NOT** modify application code.
+You are creating a **draft task** under `.spec.md/specs/drafts/`. This phase is **planning only** — do **NOT** modify application code.
 
 ### Step 1: Resolve the task slug
 
@@ -28,20 +28,22 @@ You are creating a **draft task** under `.deepspec/specs/drafts/`. This phase is
 ### Step 2: Load context (strict order)
 
 1. Open files & terminal output
-2. `.deepspec/AGENTS.md`
-3. `.deepspec/memory.md`
+2. `.spec.md/AGENTS.md`
+3. `.spec.md/memory.md`
 4. Existing specs in `active/` or `drafts/`
 5. Project source (especially paths named in input)
 6. Ask the user as last resort
 
 ### Step 3: Create the task folder
 
-Create `.deepspec/specs/drafts/[slug]/` and generate four files from templates:
+Create `.spec.md/specs/drafts/[slug]/` and generate four files from templates:
 
 - `APPROACH.md` — from `templates/APPROACH.template.md`
 - `BUSINESS_CONTEXT.md` — from `templates/BUSINESS_CONTEXT.template.md`
 - `COMPLETION_REPORT.md` — from `templates/COMPLETION_REPORT.template.md` with `Status: [PENDING]`
 - `OPEN_QUESTIONS.md` — from `templates/OPEN_QUESTIONS.template.md` (empty queue; agent fills when blocked)
+
+Optional later: `ARCHITECTURE.md` — generate with `/spec.md.diagram-architecture` (not created at draft by default).
 
 Fill templates according to **task sizing**:
 
@@ -58,7 +60,7 @@ Replace `[name]` with the human-readable task title. Match documentation density
 If affected files are known, run the track hook from project root:
 
 ```bash
-node ./.deepspec/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"draft","paths":["src/..."]}]}'
+node ./.spec.md/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"draft","paths":["src/..."]}]}'
 ```
 
 Paths live in `tracking.json`, not duplicated in prose artifacts.

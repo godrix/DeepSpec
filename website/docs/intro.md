@@ -4,7 +4,7 @@ slug: /
 
 # Introduction
 
-DeepSpec turns intent into production code with auditable specs. It uses a **3-stage pipeline** and the **A-B-C documentation flow**.
+spec.md turns intent into production code with auditable specs. It uses a **3-stage pipeline** and the **A-B-C documentation flow**.
 
 ## Pipeline
 

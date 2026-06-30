@@ -1,10 +1,10 @@
 ---
-name: deep-spec
-version: 3.0.0
-description: Spec-Driven Development framework that guides tasks from intention to implementation through a 3-stage pipeline (drafts → active → archive) using the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Use when the user says "Initialize DeepSpec", "Create task", "Approve task", "Complete task", "Discard task", "Revise task", "Refinar tarefa", or mentions DeepSpec, Review Gate, spec-driven development, TDD planning, or the `.deepspec/` folder.
+name: spec.md
+version: 4.1.0
+description: Spec-Driven Development framework that guides tasks from intention to implementation through a 3-stage pipeline (drafts → active → archive) using the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Use when the user says "Initialize spec.md", "Create task", "Approve task", "Complete task", "Discard task", "Revise task", "Map codebase", "Diagram architecture", "Interview task", "Refinar tarefa", or mentions spec.md, Review Gate, spec-driven development, TDD planning, or the `.spec.md/` folder.
 ---
 
-# DeepSpec Framework (Spec-Driven Development)
+# spec.md Framework (Spec-Driven Development)
 
 ## TL;DR
 
@@ -12,7 +12,7 @@ description: Spec-Driven Development framework that guides tasks from intention 
 
 Each task carries **A-B-C docs**: `APPROACH.md` (how), `BUSINESS_CONTEXT.md` (why + ACs), `COMPLETION_REPORT.md` (evidence).
 
-Bootstrap: `npx deep-spec init cursor-agent` or `"Initialize DeepSpec"`.
+Bootstrap: `npx @godrix/spec.md init cursor-agent` or `"Initialize spec.md"`.
 
 ## Commands
 
@@ -20,14 +20,17 @@ Operational prompts live in `spec/commands/`. Invoke by natural language or slas
 
 | Trigger                              | Command                   | Effect                                        |
 | ------------------------------------ | ------------------------- | --------------------------------------------- |
-| `"Initialize DeepSpec"`              | `/deepspec.init`          | Bootstrap `.deepspec/` + generate `AGENTS.md` |
-| `"Create task [name]"`               | `/deepspec.create-task`   | Draft in `drafts/` — **no app code**          |
-| `"Approve task"`                     | `/deepspec.approve-task`  | Move to `active/` + **implement same turn**   |
-| `"Discard task"`                     | `/deepspec.discard-task`  | `drafts/` → `archive/` as `[discarded]`       |
-| `"Complete task"`                    | `/deepspec.complete-task` | Archive after Review Gate approval            |
-| `"Revise task"` / `"Refinar tarefa"` | `/deepspec.revise-task`   | Review Rounds at `[IN REVIEW]`                |
-| list tasks                           | `/deepspec.list`          | Read-only pipeline status                     |
-| repair tracking                      | `/deepspec.repair`        | Realign `tracking.json` after renames         |
+| `"Initialize spec.md"`              | `/spec.md.init`          | Bootstrap `.spec.md/` + generate `AGENTS.md` |
+| `"Create task [name]"`               | `/spec.md.create-task`   | Draft in `drafts/` — **no app code**          |
+| `"Approve task"`                     | `/spec.md.approve-task`  | Move to `active/` + **implement same turn**   |
+| `"Discard task"`                     | `/spec.md.discard-task`  | `drafts/` → `archive/` as `[discarded]`       |
+| `"Complete task"`                    | `/spec.md.complete-task` | Archive after Review Gate approval            |
+| `"Revise task"` / `"Refinar tarefa"` | `/spec.md.revise-task`   | Review Rounds at `[IN REVIEW]`                |
+| list tasks                           | `/spec.md.list`          | Read-only pipeline status                     |
+| repair tracking                      | `/spec.md.repair`        | Realign `tracking.json` after renames         |
+| `"Map codebase"` / `"Refresh AGENTS"` | `/spec.md.map-codebase` | Deep-scan repo → rewrite `AGENTS.md`          |
+| `"Diagram architecture"`             | `/spec.md.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task      |
+| `"Interview task"` / `"Sabatina"`    | `/spec.md.interview`     | One question/turn to refine APPROACH          |
 
 ## Agent Role
 
@@ -42,8 +45,8 @@ You are a **Tech Lead and Autonomous Developer**:
 ## Context Loading (strict order)
 
 1. Open files & terminal output
-2. `.deepspec/AGENTS.md`
-3. `.deepspec/memory.md`
+2. `.spec.md/AGENTS.md`
+3. `.spec.md/memory.md`
 4. Specs in `active/` or `drafts/` — including each task's `OPEN_QUESTIONS.md`
 5. Project source code
 6. Ask the user (then append to the task's `OPEN_QUESTIONS.md` if still blocking)
@@ -80,6 +83,6 @@ You are a **Tech Lead and Autonomous Developer**:
 
 ## Resources
 
-- Templates: `.deepspec/templates/` (or `spec/templates/` in the DeepSpec package)
+- Templates: `.spec.md/templates/` (or `spec/templates/` in the spec.md package)
 - Version history: [CHANGELOG.md](CHANGELOG.md)
 - Walkthrough: [examples.md](examples.md)
