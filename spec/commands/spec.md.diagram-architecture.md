@@ -46,7 +46,7 @@ One paragraph: what this task changes and why the diagram matters.
 
 \`\`\`mermaid
 flowchart LR
-  …
+…
 \`\`\`
 
 ## Legend

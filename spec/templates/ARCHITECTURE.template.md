@@ -18,17 +18,17 @@ flowchart LR
 ## Legend
 
 | Symbol | Meaning |
-|--------|---------|
-| … | … |
+| ------ | ------- |
+| …      | …       |
 
 ## References
 
-| File | Role |
-|------|------|
-| `src/...` | … |
+| File      | Role |
+| --------- | ---- |
+| `src/...` | …    |
 
 ## Changelog
 
-| Date | Change |
-|------|--------|
+| Date       | Change          |
+| ---------- | --------------- |
 | YYYY-MM-DD | Initial diagram |

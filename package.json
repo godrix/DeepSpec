@@ -1,6 +1,6 @@
 {
   "name": "@godrix/spec.md",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "spec.md — Spec-Driven Development framework for AI agents. A 3-stage pipeline (drafts → active → archive) with A-B-C documentation flow.",
   "license": "MIT",
   "type": "module",

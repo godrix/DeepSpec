@@ -18,19 +18,19 @@ Bootstrap: `npx @godrix/spec.md init cursor-agent` or `"Initialize spec.md"`.
 
 Operational prompts live in `spec/commands/`. Invoke by natural language or slash command:
 
-| Trigger                              | Command                   | Effect                                        |
-| ------------------------------------ | ------------------------- | --------------------------------------------- |
-| `"Initialize spec.md"`              | `/spec.md.init`          | Bootstrap `.spec.md/` + generate `AGENTS.md` |
-| `"Create task [name]"`               | `/spec.md.create-task`   | Draft in `drafts/` — **no app code**          |
-| `"Approve task"`                     | `/spec.md.approve-task`  | Move to `active/` + **implement same turn**   |
-| `"Discard task"`                     | `/spec.md.discard-task`  | `drafts/` → `archive/` as `[discarded]`       |
-| `"Complete task"`                    | `/spec.md.complete-task` | Archive after Review Gate approval            |
-| `"Revise task"` / `"Refinar tarefa"` | `/spec.md.revise-task`   | Review Rounds at `[IN REVIEW]`                |
-| list tasks                           | `/spec.md.list`          | Read-only pipeline status                     |
-| repair tracking                      | `/spec.md.repair`        | Realign `tracking.json` after renames         |
-| `"Map codebase"` / `"Refresh AGENTS"` | `/spec.md.map-codebase` | Deep-scan repo → rewrite `AGENTS.md`          |
-| `"Diagram architecture"`             | `/spec.md.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task      |
-| `"Interview task"` / `"Sabatina"`    | `/spec.md.interview`     | One question/turn to refine APPROACH          |
+| Trigger                               | Command                         | Effect                                       |
+| ------------------------------------- | ------------------------------- | -------------------------------------------- |
+| `"Initialize spec.md"`                | `/spec.md.init`                 | Bootstrap `.spec.md/` + generate `AGENTS.md` |
+| `"Create task [name]"`                | `/spec.md.create-task`          | Draft in `drafts/` — **no app code**         |
+| `"Approve task"`                      | `/spec.md.approve-task`         | Move to `active/` + **implement same turn**  |
+| `"Discard task"`                      | `/spec.md.discard-task`         | `drafts/` → `archive/` as `[discarded]`      |
+| `"Complete task"`                     | `/spec.md.complete-task`        | Archive after Review Gate approval           |
+| `"Revise task"` / `"Refinar tarefa"`  | `/spec.md.revise-task`          | Review Rounds at `[IN REVIEW]`               |
+| list tasks                            | `/spec.md.list`                 | Read-only pipeline status                    |
+| repair tracking                       | `/spec.md.repair`               | Realign `tracking.json` after renames        |
+| `"Map codebase"` / `"Refresh AGENTS"` | `/spec.md.map-codebase`         | Deep-scan repo → rewrite `AGENTS.md`         |
+| `"Diagram architecture"`              | `/spec.md.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task           |
+| `"Interview task"` / `"Sabatina"`     | `/spec.md.interview`            | One question/turn to refine APPROACH         |
 
 ## Agent Role
 

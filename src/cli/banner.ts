@@ -7,7 +7,6 @@ export const BANNER = [
   ' ╚══════╝ ╚═╝      ╚══════╝  ╚═════╝ ╚═╝ ╚═╝     ╚═╝ ╚═════╝',
 ].join('\n');
 
-export const TAGLINE =
-  'Spec-Driven Development for AI agents and humans.';
+export const TAGLINE = 'Spec-Driven Development for AI agents and humans.';
 
 export const headerText = (): string => [BANNER, TAGLINE, ''].join('\n');

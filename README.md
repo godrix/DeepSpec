@@ -52,19 +52,19 @@ cp -R spec.md/. .cursor/skills/spec.md/
 
 ## Commands
 
-| Command                   | Trigger                   |
-| ------------------------- | ------------------------- |
-| `/spec.md.init`          | Initialize spec.md       |
-| `/spec.md.create-task`   | Create draft task         |
-| `/spec.md.approve-task`  | Approve + execute         |
-| `/spec.md.discard-task`  | Discard draft             |
-| `/spec.md.complete-task` | Archive after Review Gate |
-| `/spec.md.revise-task`   | Review Rounds             |
-| `/spec.md.list`          | List tasks by stage       |
-| `/spec.md.repair`        | Repair tracking map       |
-| `/spec.md.map-codebase`  | Refresh `AGENTS.md` from repo scan |
+| Command                         | Trigger                            |
+| ------------------------------- | ---------------------------------- |
+| `/spec.md.init`                 | Initialize spec.md                 |
+| `/spec.md.create-task`          | Create draft task                  |
+| `/spec.md.approve-task`         | Approve + execute                  |
+| `/spec.md.discard-task`         | Discard draft                      |
+| `/spec.md.complete-task`        | Archive after Review Gate          |
+| `/spec.md.revise-task`          | Review Rounds                      |
+| `/spec.md.list`                 | List tasks by stage                |
+| `/spec.md.repair`               | Repair tracking map                |
+| `/spec.md.map-codebase`         | Refresh `AGENTS.md` from repo scan |
 | `/spec.md.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task |
-| `/spec.md.interview`     | One-question approach refinement |
+| `/spec.md.interview`            | One-question approach refinement   |
 
 Optional per-task artifact: `ARCHITECTURE.md` (diagrams on demand). The VS Code extension shows **Execution Plan** progress from `APPROACH.md` reconciled with `COMPLETION_REPORT.md`.
 

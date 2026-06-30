@@ -25,15 +25,15 @@ This is **planning / documentation only** — do **not** modify application sour
 
 Inspect (read-only):
 
-| Area | What to extract |
-|------|-----------------|
-| Package manifests | `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, etc. |
-| Source layout | Top-level dirs (`src/`, `lib/`, `app/`, `packages/`) — 1-line purpose each |
-| Lint/format | ESLint, Prettier, Ruff, editorconfig |
-| Tests | Runner, config, test folder conventions |
-| CI/CD | `.github/workflows/`, GitLab CI, etc. |
-| Root `AGENTS.md` / `README.md` | Existing conventions |
-| Recent commits | `git log -5 --oneline` for active areas |
+| Area                           | What to extract                                                            |
+| ------------------------------ | -------------------------------------------------------------------------- |
+| Package manifests              | `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, etc.             |
+| Source layout                  | Top-level dirs (`src/`, `lib/`, `app/`, `packages/`) — 1-line purpose each |
+| Lint/format                    | ESLint, Prettier, Ruff, editorconfig                                       |
+| Tests                          | Runner, config, test folder conventions                                    |
+| CI/CD                          | `.github/workflows/`, GitLab CI, etc.                                      |
+| Root `AGENTS.md` / `README.md` | Existing conventions                                                       |
+| Recent commits                 | `git log -5 --oneline` for active areas                                    |
 
 If User Input names paths, weight those in the Repository Map.
 
@@ -47,10 +47,10 @@ Use `templates/AGENTS.template.md` structure and fill:
 ```markdown
 ## Repository Map
 
-| Path | Role |
-|------|------|
+| Path        | Role                          |
+| ----------- | ----------------------------- |
 | `src/core/` | CLI scaffold, hooks, manifest |
-| … | … |
+| …           | …                             |
 ```
 
 Replace `[PLACEHOLDER]` tokens. Use `TBD` only when discovery fails — list what you could not detect.

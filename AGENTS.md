@@ -58,19 +58,19 @@ The intelligence lives in the **spec**, not in the user memorizing commands.
 
 ## 4. The spec.md workflow
 
-| Stage     | Command                   | Purpose                                    |
-| --------- | ------------------------- | ------------------------------------------ |
-| Bootstrap | `/spec.md.init`          | Create `.spec.md/` + generate `AGENTS.md` |
-| Draft     | `/spec.md.create-task`   | A-B-C planning — **no app code**           |
-| Approve   | `/spec.md.approve-task`  | Move to `active/` + implement same turn    |
-| Review    | `/spec.md.revise-task`   | Review Gate + Review Rounds                |
-| Complete  | `/spec.md.complete-task` | Archive after user approval                |
-| Discard   | `/spec.md.discard-task`  | Abandon draft without code                 |
-| List      | `/spec.md.list`          | Read-only pipeline status                  |
-| Repair    | `/spec.md.repair`        | Realign `tracking.json` after renames      |
-| Map       | `/spec.md.map-codebase`  | Re-scan repo → refresh `AGENTS.md`         |
-| Diagram   | `/spec.md.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task  |
-| Interview | `/spec.md.interview`     | One-question approach refinement           |
+| Stage     | Command                         | Purpose                                   |
+| --------- | ------------------------------- | ----------------------------------------- |
+| Bootstrap | `/spec.md.init`                 | Create `.spec.md/` + generate `AGENTS.md` |
+| Draft     | `/spec.md.create-task`          | A-B-C planning — **no app code**          |
+| Approve   | `/spec.md.approve-task`         | Move to `active/` + implement same turn   |
+| Review    | `/spec.md.revise-task`          | Review Gate + Review Rounds               |
+| Complete  | `/spec.md.complete-task`        | Archive after user approval               |
+| Discard   | `/spec.md.discard-task`         | Abandon draft without code                |
+| List      | `/spec.md.list`                 | Read-only pipeline status                 |
+| Repair    | `/spec.md.repair`               | Realign `tracking.json` after renames     |
+| Map       | `/spec.md.map-codebase`         | Re-scan repo → refresh `AGENTS.md`        |
+| Diagram   | `/spec.md.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task        |
+| Interview | `/spec.md.interview`            | One-question approach refinement          |
 
 Maintenance hooks (`list`, `track`, `repair`, `validate`) are deterministic TypeScript compiled to `.spec.md/hooks/*.mjs`.
 
@@ -92,13 +92,13 @@ When changing source under `src/`, `spec/`, or `test/`, read the `architecture` 
 
 | Path              | Purpose                                          |
 | ----------------- | ------------------------------------------------ |
-| `spec/commands/`  | `/spec.md.*` command definitions                |
+| `spec/commands/`  | `/spec.md.*` command definitions                 |
 | `spec/templates/` | A-B-C and bootstrap templates                    |
 | `src/`            | TypeScript source (CLI, hooks, providers)        |
 | `lib/`            | Compiled output (generated)                      |
-| `spec.md/`      | Orchestrator skill payload (retrocompat install) |
+| `spec.md/`        | Orchestrator skill payload (retrocompat install) |
 | `test/`           | Poku e2e + integration tests                     |
 | `website/`        | Docusaurus documentation site                    |
-| `.spec.md/`      | Dogfooded instance in this repo                  |
+| `.spec.md/`       | Dogfooded instance in this repo                  |
 
 Reference implementation patterns: `ideas/blue-spec/` (read-only reference, not shipped).

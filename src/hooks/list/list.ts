@@ -3,9 +3,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { resolveSpecRoot } from '../../core/brand.js';
 
-const stageDirs = (
-  rootDir: string
-): Record<TaskStage, string> => ({
+const stageDirs = (rootDir: string): Record<TaskStage, string> => ({
   draft: `${rootDir}/specs/drafts`,
   active: `${rootDir}/specs/active`,
   archive: `${rootDir}/specs/archive`,

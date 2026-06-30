@@ -34,6 +34,7 @@ You are running a **socratic interview** (sabatina) to strengthen the draft **AP
 
 ```markdown
 ### Qn — <short title>
+
 - **Status:** answered
 - **Asked:** YYYY-MM-DD
 - **Question:** …

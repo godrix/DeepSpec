@@ -47,14 +47,14 @@ Ensure `specs/drafts/`, `specs/active/`, and `specs/archive/` directories exist.
 
 Run the same structured discovery as `/spec.md.map-codebase` (read-only):
 
-| Area | What to extract |
-|------|-----------------|
-| Package manifests | Languages, frameworks, package manager |
-| Source layout | `src/`, `lib/`, `packages/` — purpose per top-level dir |
-| Lint/format | ESLint, Prettier, Ruff, etc. |
-| Tests | Runner, conventions, coverage |
-| CI/CD | `.github/workflows/` or equivalent |
-| Root docs | `README.md`, root `AGENTS.md` if present |
+| Area              | What to extract                                         |
+| ----------------- | ------------------------------------------------------- |
+| Package manifests | Languages, frameworks, package manager                  |
+| Source layout     | `src/`, `lib/`, `packages/` — purpose per top-level dir |
+| Lint/format       | ESLint, Prettier, Ruff, etc.                            |
+| Tests             | Runner, conventions, coverage                           |
+| CI/CD             | `.github/workflows/` or equivalent                      |
+| Root docs         | `README.md`, root `AGENTS.md` if present                |
 
 **Rewrite** `.spec.md/AGENTS.md` with:
 
