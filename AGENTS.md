@@ -1,22 +1,22 @@
-# spec.md: Spec-Driven Development (SDD)
+# DeepSpec: Spec-Driven Development (SDD)
 
-> This file orients any AI agent (and human) working in this repository. Read it fully before making changes. It describes **what spec.md is**, **who it is for**, **how it is built**, and **how to work in this codebase**. For file/folder layout and code conventions, invoke the internal `architecture` skill.
+> This file orients any AI agent (and human) working in this repository. Read it fully before making changes. It describes **what DeepSpec is**, **who it is for**, **how it is built**, and **how to work in this codebase**. For file/folder layout and code conventions, invoke the internal `architecture` skill.
 
 ---
 
 ## 1. What this workspace is
 
-This workspace is the **development environment for spec.md**.
+This workspace is the **development environment for DeepSpec**.
 
-spec.md is a **Spec-Driven Development (SDD)** framework: a structured workflow that turns intent into production code with auditable specs. The agent runs the workflow from markdown commands and templates, not from ad-hoc chat goals.
+DeepSpec is a **Spec-Driven Development (SDD)** framework: a structured workflow that turns intent into production code with auditable specs. The agent runs the workflow from markdown commands and templates, not from ad-hoc chat goals.
 
 ### The problem it exists to solve
 
-AI coding assistants ship features fast, but without a single source of truth before code changes. Acceptance criteria drift, context degrades across turns, and there is no audit trail. spec.md puts a **3-stage pipeline** and **A-B-C documentation flow** within reach of any developer using any supported agent.
+AI coding assistants ship features fast, but without a single source of truth before code changes. Acceptance criteria drift, context degrades across turns, and there is no audit trail. DeepSpec puts a **3-stage pipeline** and **A-B-C documentation flow** within reach of any developer using any supported agent.
 
-### What spec.md ships
+### What DeepSpec ships
 
-spec.md is **a collection of templates, agent commands, and a thin CLI** — not a heavy runtime framework. Its value is the **workflow the AI agent runs**:
+DeepSpec is **a collection of templates, agent commands, and a thin CLI** — not a heavy runtime framework. Its value is the **workflow the AI agent runs**:
 
 ```
 drafts/ → (Approve) → active/ (execute → Review Gate) → (Complete) → archive/
@@ -30,13 +30,13 @@ Each task carries three docs:
 
 ### Flexible by design
 
-spec.md adapts documentation density to task size (Small / Medium / Large). The pipeline is strict on **when code may change**, but the amount of ceremony matches the scope.
+DeepSpec adapts documentation density to task size (Small / Medium / Large). The pipeline is strict on **when code may change**, but the amount of ceremony matches the scope.
 
 ---
 
 ## 2. Who it is for
 
-spec.md is for **any team or individual using AI agents for software development** who wants:
+DeepSpec is for **any team or individual using AI agents for software development** who wants:
 
 - A plan before application code changes
 - TDD anchored to acceptance criteria
@@ -50,35 +50,35 @@ The intelligence lives in the **spec**, not in the user memorizing commands.
 ## 3. Technology stack
 
 - **Language:** TypeScript (strict), compiled to JavaScript via esbuild
-- **Distribution:** npm as `@godrix/spec.md`, run via `npx @godrix/spec.md init <agent>`
+- **Distribution:** npm as `deep-spec`, run via `npx deep-spec init <agent>`
 - **Tests:** Poku
 - **Docs site:** Docusaurus (`website/`)
 
 ---
 
-## 4. The spec.md workflow
+## 4. The DeepSpec workflow
 
 | Stage     | Command                         | Purpose                                   |
 | --------- | ------------------------------- | ----------------------------------------- |
-| Bootstrap | `/spec.md.init`                 | Create `.spec.md/` + generate `AGENTS.md` |
-| Draft     | `/spec.md.create-task`          | A-B-C planning — **no app code**          |
-| Approve   | `/spec.md.approve-task`         | Move to `active/` + implement same turn   |
-| Review    | `/spec.md.revise-task`          | Review Gate + Review Rounds               |
-| Complete  | `/spec.md.complete-task`        | Archive after user approval               |
-| Discard   | `/spec.md.discard-task`         | Abandon draft without code                |
-| List      | `/spec.md.list`                 | Read-only pipeline status                 |
-| Repair    | `/spec.md.repair`               | Realign `tracking.json` after renames     |
-| Map       | `/spec.md.map-codebase`         | Re-scan repo → refresh `AGENTS.md`        |
-| Diagram   | `/spec.md.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task        |
-| Interview | `/spec.md.interview`            | One-question approach refinement          |
+| Bootstrap | `/deepspec.init`                 | Create `.deepspec/` + generate `AGENTS.md` |
+| Draft     | `/deepspec.create-task`          | A-B-C planning — **no app code**          |
+| Approve   | `/deepspec.approve-task`         | Move to `active/` + implement same turn   |
+| Review    | `/deepspec.revise-task`          | Review Gate + Review Rounds               |
+| Complete  | `/deepspec.complete-task`        | Archive after user approval               |
+| Discard   | `/deepspec.discard-task`         | Abandon draft without code                |
+| List      | `/deepspec.list`                 | Read-only pipeline status                 |
+| Repair    | `/deepspec.repair`               | Realign `tracking.json` after renames     |
+| Map       | `/deepspec.map-codebase`         | Re-scan repo → refresh `AGENTS.md`        |
+| Diagram   | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task        |
+| Interview | `/deepspec.interview`            | One-question approach refinement          |
 
-Maintenance hooks (`list`, `track`, `repair`, `validate`) are deterministic TypeScript compiled to `.spec.md/hooks/*.mjs`.
+Maintenance hooks (`list`, `track`, `repair`, `validate`) are deterministic TypeScript compiled to `.deepspec/hooks/*.mjs`.
 
 ---
 
 ## 5. How to work in this codebase
 
-- **Spec-first:** commands in `spec/commands/` are the operational source of truth; `spec.md/SKILL.md` is a thin orchestrator.
+- **Spec-first:** commands in `spec/commands/` are the operational source of truth; `deep-spec/SKILL.md` is a thin orchestrator.
 - **Command / template / hook split:** reasoning in commands, artifact shape in templates, mechanics in hooks.
 - **Agent-agnostic core:** one command source → many agent formats via `src/providers/registry.ts`.
 - **Idempotent init:** `writeFileIfAbsent` — re-init never overwrites user artifacts.
@@ -92,13 +92,13 @@ When changing source under `src/`, `spec/`, or `test/`, read the `architecture` 
 
 | Path              | Purpose                                          |
 | ----------------- | ------------------------------------------------ |
-| `spec/commands/`  | `/spec.md.*` command definitions                 |
+| `spec/commands/`  | `/deepspec.*` command definitions                 |
 | `spec/templates/` | A-B-C and bootstrap templates                    |
 | `src/`            | TypeScript source (CLI, hooks, providers)        |
 | `lib/`            | Compiled output (generated)                      |
-| `spec.md/`        | Orchestrator skill payload (retrocompat install) |
+| `deep-spec/`        | Orchestrator skill payload (retrocompat install) |
 | `test/`           | Poku e2e + integration tests                     |
 | `website/`        | Docusaurus documentation site                    |
-| `.spec.md/`       | Dogfooded instance in this repo                  |
+| `.deepspec/`       | Dogfooded instance in this repo                  |
 
 Reference implementation patterns: `ideas/blue-spec/` (read-only reference, not shipped).

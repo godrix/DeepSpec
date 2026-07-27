@@ -1,5 +1,5 @@
 ---
-description: Repair spec.md tracking after file renames or moves. Realigns tracking.json with current task paths from APPROACH.md artifacts. Maintenance only — never edits A-B-C prose. Can migrate legacy `.deepspec/` to `.spec.md/` when requested.
+description: Repair DeepSpec tracking after file renames or moves. Realigns tracking.json with current task paths from APPROACH.md artifacts. Maintenance only — never edits A-B-C prose. Can migrate legacy `.spec.md/` to `.deepspec/` when requested.
 ---
 
 ## User Input
@@ -12,17 +12,17 @@ Optional: task slug to repair. Empty repairs all tracked tasks.
 
 ## Outline
 
-You are reconciling `.spec.md/tracking.json` so task slugs stay linked to current file paths after refactors.
+You are reconciling `.deepspec/tracking.json` so task slugs stay linked to current file paths after refactors.
 
 This is **plumbing**, not a workflow phase. It does **not** edit A-B-C artifacts — only `tracking.json`.
 
-### Step 0 (optional): Migrate legacy `.deepspec/`
+### Step 0 (optional): Migrate legacy `.spec.md/`
 
-If `.deepspec/` exists and `.spec.md/` does not:
+If `.spec.md/` exists and `.deepspec/` does not:
 
-1. `mv .deepspec .spec.md`
-2. Update `manifest.json` and `tracking.json` so `"name": "spec.md"`
-3. Re-run `npx @godrix/spec.md init <agent>` to refresh skills (idempotent)
+1. `mv .spec.md .deepspec`
+2. Update `manifest.json` and `tracking.json` so `"name": "deep-spec"`
+3. Re-run `npx deep-spec init <agent>` to refresh skills (idempotent)
 
 ### Step 1: Collect observed entries
 
@@ -38,7 +38,7 @@ If tracking and artifacts disagree on stage, trust the filesystem folder.
 ### Step 2: Run repair hook
 
 ```bash
-node ./.spec.md/hooks/repair.mjs '{"entries":[{"name":"<slug>","stage":"active","paths":["src/..."]}]}'
+node ./.deepspec/hooks/repair.mjs '{"entries":[{"name":"<slug>","stage":"active","paths":["src/..."]}]}'
 ```
 
 Pass all observed entries in one payload.
@@ -55,7 +55,7 @@ The hook returns `unresolved` entries:
 Report what was reconciled, anything still unresolved, and suggest:
 
 ```
-chore: repair spec.md tracking map
+chore: repair DeepSpec tracking map
 ```
 
 Other commands may invoke repair automatically when they detect path inconsistencies.

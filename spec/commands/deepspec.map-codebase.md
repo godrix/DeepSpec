@@ -1,5 +1,5 @@
 ---
-description: Deep-scan an existing repository and rewrite `.spec.md/AGENTS.md` with tech stack, standards, testing, personas, and a Repository Map. Planning only — no application code.
+description: Deep-scan an existing repository and rewrite `.deepspec/AGENTS.md` with tech stack, standards, testing, personas, and a Repository Map. Planning only — no application code.
 ---
 
 ## User Input
@@ -12,14 +12,14 @@ Optional: paths or areas to prioritize (e.g. `src/api`, `mobile`). Empty scans t
 
 ## Outline
 
-You are **mapping a brownfield codebase** into `.spec.md/AGENTS.md` so future tasks load accurate context.
+You are **mapping a brownfield codebase** into `.deepspec/AGENTS.md` so future tasks load accurate context.
 
 This is **planning / documentation only** — do **not** modify application source code.
 
 ### Step 1: Preconditions
 
-- Require `.spec.md/manifest.json`. If missing, tell the user to run `/spec.md.init` first.
-- Read current `.spec.md/AGENTS.md` as baseline (preserve user edits where still accurate).
+- Require `.deepspec/manifest.json`. If missing, tell the user to run `/deepspec.init` first.
+- Read current `.deepspec/AGENTS.md` as baseline (preserve user edits where still accurate).
 
 ### Step 2: Structured discovery scan
 
@@ -37,7 +37,7 @@ Inspect (read-only):
 
 If User Input names paths, weight those in the Repository Map.
 
-### Step 3: Rewrite `.spec.md/AGENTS.md`
+### Step 3: Rewrite `.deepspec/AGENTS.md`
 
 Use `templates/AGENTS.template.md` structure and fill:
 
@@ -59,4 +59,4 @@ Replace `[PLACEHOLDER]` tokens. Use `TBD` only when discovery fails — list wha
 
 Present a short diff-style summary (what changed vs previous AGENTS.md). Do **not** create a task.
 
-**Next steps:** `/spec.md.create-task` to plan work, or `/spec.md.init` if agent commands need reinstall.
+**Next steps:** `/deepspec.create-task` to plan work, or `/deepspec.init` if agent commands need reinstall.

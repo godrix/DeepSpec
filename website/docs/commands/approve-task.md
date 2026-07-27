@@ -2,7 +2,7 @@
 
 Approve a draft and implement immediately.
 
-**Trigger:** `"Approve task"` or `/spec.md.approve-task`
+**Trigger:** `"Approve task"` or `/deepspec.approve-task`
 
 - Moves `drafts/[slug]/` → `active/[slug]/`
 - Locks `## Execution Plan` as immutable contract

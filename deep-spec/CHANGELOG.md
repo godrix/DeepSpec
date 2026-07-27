@@ -10,20 +10,20 @@ This project follows [Semantic Versioning](https://semver.org/): **major** = bre
 
 ### Added
 
-- **CLI:** `npx spec.md init <agent>` scaffolds `.spec.md/` idempotently (templates, hooks, pipeline dirs, agent commands).
-- **Command split:** 8 operational prompts in `spec/commands/spec.md.*.md` (init, create-task, approve-task, discard-task, complete-task, revise-task, list, repair).
+- **CLI:** `npx deep-spec init <agent>` scaffolds `.deepspec/` idempotently (templates, hooks, pipeline dirs, agent commands).
+- **Command split:** 8 operational prompts in `spec/commands/deepspec.*.md` (init, create-task, approve-task, discard-task, complete-task, revise-task, list, repair).
 - **Bootstrap templates:** `AGENTS.template.md`, `memory.template.md` plus existing A-B-C templates in `spec/templates/`.
-- **Hooks:** deterministic `list`, `track`, `repair`, `validate` compiled to `.spec.md/hooks/*.mjs`.
+- **Hooks:** deterministic `list`, `track`, `repair`, `validate` compiled to `.deepspec/hooks/*.mjs`.
 - **Multi-agent providers:** registry + transform layer (skill, copilot-prompt, markdown, forge, gemini-toml, goose-yaml).
 - **Tests:** Poku e2e init + integration (frontmatter, tracking).
 - **CI:** GitHub Actions lint + test workflows.
 - **Docs:** root `AGENTS.md`, `architecture` skill, Docusaurus site in `website/`.
-- **Dogfooding:** `.spec.md/` in the spec.md repo with archived migration task.
+- **Dogfooding:** `.deepspec/` in the DeepSpec repo with archived migration task.
 
 ### Changed
 
-- `spec.md/SKILL.md` is now a **thin orchestrator** (~80 lines) routing to `spec/commands/`; operational detail moved to commands.
-- Recommended install path is CLI init; manual copy of `spec.md/` remains supported for retrocompat.
+- `deep-spec/SKILL.md` is now a **thin orchestrator** (~80 lines) routing to `spec/commands/`; operational detail moved to commands.
+- Recommended install path is CLI init; manual copy of `deep-spec/` remains supported for retrocompat.
 
 ### Preserved (unchanged semantics)
 

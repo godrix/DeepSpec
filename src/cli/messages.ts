@@ -1,5 +1,9 @@
 import type { ScaffoldResult } from '../types/core.js';
-import { PRODUCT_NAME } from '../core/brand.js';
+import {
+  PACKAGE_NAME,
+  PRODUCT_NAME,
+  commandName,
+} from '../core/brand.js';
 import { headerText } from './banner.js';
 
 export const versionText = (version: string): string =>
@@ -9,7 +13,7 @@ export const helpText = (agentKeys: string[]): string =>
   [
     headerText(),
     'Usage:',
-    `  npx ${PRODUCT_NAME} init <agent>`,
+    `  npx ${PACKAGE_NAME} init <agent>`,
     '',
     'Commands:',
     `  init <agent>      Scaffold ${PRODUCT_NAME} into the current project`,
@@ -27,7 +31,7 @@ export const noAgentSelected = (agentKeys: string[]): string => {
   return [
     'No agent selected.',
     `Pass an agent (available: ${agentKeys.join(', ')}).`,
-    `Example: npx ${PRODUCT_NAME} init ${first}`,
+    `Example: npx ${PACKAGE_NAME} init ${first}`,
   ].join('\n');
 };
 
@@ -61,8 +65,8 @@ export const nextSteps = (agentDisplayName: string): string =>
     '',
     'Next steps:',
     `  1. Open ${agentDisplayName} in this project.`,
-    `  2. Say "Initialize ${PRODUCT_NAME}" or run /spec.md.init to generate AGENTS.md.`,
-    '  3. Run /spec.md.create-task to plan your first task.',
+    `  2. Say "Initialize ${PRODUCT_NAME}" or run /${commandName('init')} to generate AGENTS.md.`,
+    `  3. Run /${commandName('create-task')} to plan your first task.`,
     '  4. Review A-B-C docs, then "Approve task" to implement with TDD.',
     '  5. Complete at Review Gate with "Complete task".',
   ].join('\n');

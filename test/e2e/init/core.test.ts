@@ -4,15 +4,15 @@ import { describe, it, strict } from 'poku';
 import { listTasks } from '../../../src/hooks/list/list.js';
 import { initInto, newWorkspace, packageRoot } from './__utils__.js';
 
-await describe('init scaffolds the spec.md core', async () => {
+await describe('init scaffolds the DeepSpec core', async () => {
   await it('creates pipeline stage directories', async () => {
     const workspace = await newWorkspace();
 
     await initInto(workspace, { init: true, agent: 'cursor-agent' });
 
-    await stat(join(workspace, '.spec.md/specs/drafts'));
-    await stat(join(workspace, '.spec.md/specs/active'));
-    await stat(join(workspace, '.spec.md/specs/archive'));
+    await stat(join(workspace, '.deepspec/specs/drafts'));
+    await stat(join(workspace, '.deepspec/specs/active'));
+    await stat(join(workspace, '.deepspec/specs/archive'));
   });
 
   await it('copies templates byte-for-byte from the package', async () => {
@@ -32,7 +32,7 @@ await describe('init scaffolds the spec.md core', async () => {
         'utf8'
       );
       const scaffolded = await readFile(
-        join(workspace, `.spec.md/templates/${template}`),
+        join(workspace, `.deepspec/templates/${template}`),
         'utf8'
       );
 
@@ -45,20 +45,20 @@ await describe('init scaffolds the spec.md core', async () => {
 
     await initInto(workspace, { init: true, agent: 'cursor-agent' });
 
-    await stat(join(workspace, '.cursor/skills/spec.md/SKILL.md'));
+    await stat(join(workspace, '.cursor/skills/deep-spec/SKILL.md'));
   });
 
   await it('renders commands for skill and markdown agents', async () => {
     const skillWorkspace = await newWorkspace();
     await initInto(skillWorkspace, { init: true, agent: 'cursor-agent' });
     await stat(
-      join(skillWorkspace, '.cursor/skills/spec.md.create-task/SKILL.md')
+      join(skillWorkspace, '.cursor/skills/deepspec.create-task/SKILL.md')
     );
 
     const markdownWorkspace = await newWorkspace();
     await initInto(markdownWorkspace, { init: true, agent: 'opencode' });
     await stat(
-      join(markdownWorkspace, '.opencode/commands/spec.md.create-task.md')
+      join(markdownWorkspace, '.opencode/commands/deepspec.create-task.md')
     );
   });
 
@@ -68,27 +68,27 @@ await describe('init scaffolds the spec.md core', async () => {
     await initInto(workspace, { init: true, agent: 'cursor-agent' });
 
     const tracking: { name: string; entries: unknown[] } = JSON.parse(
-      await readFile(join(workspace, '.spec.md/tracking.json'), 'utf8')
+      await readFile(join(workspace, '.deepspec/tracking.json'), 'utf8')
     );
 
-    strict.strictEqual(tracking.name, 'spec.md');
+    strict.strictEqual(tracking.name, 'deep-spec');
     strict.deepStrictEqual(tracking.entries, [], 'entries should start empty');
   });
 
-  await it('copies hooks into .spec.md/hooks/', async () => {
+  await it('copies hooks into .deepspec/hooks/', async () => {
     const workspace = await newWorkspace();
 
     await initInto(workspace, { init: true, agent: 'cursor-agent' });
 
-    const hooks = await readdir(join(workspace, '.spec.md/hooks'));
+    const hooks = await readdir(join(workspace, '.deepspec/hooks'));
     const expected = ['list.mjs', 'track.mjs', 'repair.mjs', 'validate.mjs'];
 
     for (const hook of expected) strict(hooks.includes(hook), `${hook} exists`);
   });
 
-  await it('lists tasks from legacy .deepspec/ when .spec.md/ is absent', async () => {
+  await it('lists tasks from legacy .spec.md/ when .deepspec/ is absent', async () => {
     const workspace = await newWorkspace();
-    const legacyTask = join(workspace, '.deepspec/specs/drafts/legacy-task');
+    const legacyTask = join(workspace, '.spec.md/specs/drafts/legacy-task');
 
     await mkdir(legacyTask, { recursive: true });
     await writeFile(

@@ -2,17 +2,17 @@
 
 ## 1. Initialize
 
-Say `"Initialize spec.md"` or run `/spec.md.init`. The agent scans your repo and writes `.spec.md/AGENTS.md`.
+Say `"Initialize DeepSpec"` or run `/deepspec.init`. The agent scans your repo and writes `.deepspec/AGENTS.md`.
 
 ## 2. Create task (Draft)
 
-`"Create task [name]"` → `/spec.md.create-task`
+`"Create task [name]"` → `/deepspec.create-task`
 
-Creates `.spec.md/specs/drafts/[slug]/` with A-B-C files. **No application code** in this stage.
+Creates `.deepspec/specs/drafts/[slug]/` with A-B-C files. **No application code** in this stage.
 
 ## 3. Approve + Execute
 
-`"Approve task"` → `/spec.md.approve-task`
+`"Approve task"` → `/deepspec.approve-task`
 
 Moves to `active/` and **implements immediately** in the same turn with TDD.
 
@@ -21,11 +21,11 @@ Moves to `active/` and **implements immediately** in the same turn with TDD.
 When execution completes, status becomes `[IN REVIEW]`. The agent presents a review package. You respond with:
 
 - `"Complete task"` — archive
-- Feedback — triggers Review Rounds via `/spec.md.revise-task`
+- Feedback — triggers Review Rounds via `/deepspec.revise-task`
 
 ## 5. Archive
 
-`"Complete task"` → `/spec.md.complete-task`
+`"Complete task"` → `/deepspec.complete-task`
 
 Moves to `archive/` and indexes `memory.md`.
 
@@ -35,7 +35,7 @@ Moves to `archive/` and indexes `memory.md`.
 
 ## Hooks
 
-Deterministic operations via `.spec.md/hooks/`:
+Deterministic operations via `.deepspec/hooks/`:
 
 - `list.mjs` — tasks by stage
 - `track.mjs` — register paths

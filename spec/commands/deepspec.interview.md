@@ -24,7 +24,7 @@ You are running a **socratic interview** (sabatina) to strengthen the draft **AP
 ### Step 1: Load context
 
 1. Task folder: `APPROACH.md`, `BUSINESS_CONTEXT.md`, `OPEN_QUESTIONS.md`
-2. `.spec.md/AGENTS.md`, `memory.md`
+2. `.deepspec/AGENTS.md`, `memory.md`
 3. Relevant source for files in `## Affected Files`
 
 ### Step 2: If user answered a prior question
@@ -64,4 +64,4 @@ Wait for the user. Do **not** approve, implement, or create new tasks.
 
 ### Step 4: When plan feels complete
 
-Say so explicitly and suggest `"Approve task"` or `/spec.md.diagram-architecture` — **do not** ask another question that turn.
+Say so explicitly and suggest `"Approve task"` or `/deepspec.diagram-architecture` — **do not** ask another question that turn.

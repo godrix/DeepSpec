@@ -8,17 +8,17 @@ import { readdir, readFile } from 'node:fs/promises';
 import { ORCHESTRATOR_DIR } from './brand.js';
 
 const COMMAND_FILES: Record<CommandKey, string> = {
-  init: 'spec/commands/spec.md.init.md',
-  'create-task': 'spec/commands/spec.md.create-task.md',
-  'approve-task': 'spec/commands/spec.md.approve-task.md',
-  'discard-task': 'spec/commands/spec.md.discard-task.md',
-  'complete-task': 'spec/commands/spec.md.complete-task.md',
-  'revise-task': 'spec/commands/spec.md.revise-task.md',
-  list: 'spec/commands/spec.md.list.md',
-  repair: 'spec/commands/spec.md.repair.md',
-  'map-codebase': 'spec/commands/spec.md.map-codebase.md',
-  'diagram-architecture': 'spec/commands/spec.md.diagram-architecture.md',
-  interview: 'spec/commands/spec.md.interview.md',
+  init: 'spec/commands/deepspec.init.md',
+  'create-task': 'spec/commands/deepspec.create-task.md',
+  'approve-task': 'spec/commands/deepspec.approve-task.md',
+  'discard-task': 'spec/commands/deepspec.discard-task.md',
+  'complete-task': 'spec/commands/deepspec.complete-task.md',
+  'revise-task': 'spec/commands/deepspec.revise-task.md',
+  list: 'spec/commands/deepspec.list.md',
+  repair: 'spec/commands/deepspec.repair.md',
+  'map-codebase': 'spec/commands/deepspec.map-codebase.md',
+  'diagram-architecture': 'spec/commands/deepspec.diagram-architecture.md',
+  interview: 'spec/commands/deepspec.interview.md',
 };
 
 const TEMPLATE_FILES: Record<TemplateKey, string> = {

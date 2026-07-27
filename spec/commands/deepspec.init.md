@@ -1,5 +1,5 @@
 ---
-description: Bootstrap spec.md in the current project. Creates `.spec.md/` scaffolding, copies templates and hooks, installs agent commands, and generates AGENTS.md from a context discovery scan of the repository.
+description: Bootstrap DeepSpec in the current project. Creates `.deepspec/` scaffolding, copies templates and hooks, installs agent commands, and generates AGENTS.md from a context discovery scan of the repository.
 ---
 
 ## User Input
@@ -8,22 +8,22 @@ description: Bootstrap spec.md in the current project. Creates `.spec.md/` scaff
 $ARGUMENTS
 ```
 
-This command is typically triggered by `"Initialize spec.md"` or when `.spec.md/` is missing.
+This command is typically triggered by `"Initialize DeepSpec"` or when `.deepspec/` is missing.
 
 ## Outline
 
-You are initializing **spec.md** (Spec-Driven Development) in the current project.
+You are initializing **DeepSpec** (Spec-Driven Development) in the current project.
 
 ### Step 1: Check if already initialized
 
-- If `.spec.md/manifest.json` exists, tell the user spec.md is already initialized. Suggest `npx @godrix/spec.md init <agent>` only if they need agent commands reinstalled. Do **not** overwrite existing files.
+- If `.deepspec/manifest.json` exists, tell the user DeepSpec is already initialized. Suggest `npx deep-spec init <agent>` only if they need agent commands reinstalled. Do **not** overwrite existing files.
 
 ### Step 2: Verify scaffold (CLI path)
 
-If the user ran `npx @godrix/spec.md init <agent>`, the CLI already created:
+If the user ran `npx deep-spec init <agent>`, the CLI already created:
 
 ```
-.spec.md/
+.deepspec/
 ├── AGENTS.md
 ├── memory.md
 ├── manifest.json
@@ -36,16 +36,16 @@ If the user ran `npx @godrix/spec.md init <agent>`, the CLI already created:
     └── archive/
 ```
 
-If `.spec.md/` is missing, create the structure above manually. Copy templates from `templates/` (or `.spec.md/templates/` if present):
+If `.deepspec/` is missing, create the structure above manually. Copy templates from `templates/` (or `.deepspec/templates/` if present):
 
-- `templates/AGENTS.template.md` → `.spec.md/AGENTS.md` (placeholder until Step 3)
-- `templates/memory.template.md` → `.spec.md/memory.md`
+- `templates/AGENTS.template.md` → `.deepspec/AGENTS.md` (placeholder until Step 3)
+- `templates/memory.template.md` → `.deepspec/memory.md`
 
 Ensure `specs/drafts/`, `specs/active/`, and `specs/archive/` directories exist.
 
 ### Step 3: Context Discovery → AGENTS.md
 
-Run the same structured discovery as `/spec.md.map-codebase` (read-only):
+Run the same structured discovery as `/deepspec.map-codebase` (read-only):
 
 | Area              | What to extract                                         |
 | ----------------- | ------------------------------------------------------- |
@@ -56,7 +56,7 @@ Run the same structured discovery as `/spec.md.map-codebase` (read-only):
 | CI/CD             | `.github/workflows/` or equivalent                      |
 | Root docs         | `README.md`, root `AGENTS.md` if present                |
 
-**Rewrite** `.spec.md/AGENTS.md` with:
+**Rewrite** `.deepspec/AGENTS.md` with:
 
 - **Tech Stack**, **Coding Standards**, **Testing Setup**, **Agent Personas**
 - **Repository Map** (table: Path | Role for key modules)
@@ -67,4 +67,4 @@ Replace all `[PLACEHOLDER]` tokens. Use `TBD` only when discovery fails.
 
 Show the generated `AGENTS.md` summary to the user. Ask them to review before creating any task.
 
-**Next step:** Run `/spec.md.create-task` (or say `"Create task [name]"`) when ready to plan work.
+**Next step:** Run `/deepspec.create-task` (or say `"Create task [name]"`) when ready to plan work.

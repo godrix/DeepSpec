@@ -1,12 +1,12 @@
 import { access } from 'node:fs/promises';
 import { join } from 'node:path';
 
-export const PRODUCT_NAME = 'spec.md';
-export const ROOT_DIR = '.spec.md';
-export const LEGACY_ROOT_DIR = '.deepspec';
-export const PACKAGE_NAME = 'spec.md';
-export const COMMAND_PREFIX = 'spec.md';
-export const ORCHESTRATOR_DIR = 'spec.md';
+export const PRODUCT_NAME = 'DeepSpec';
+export const ROOT_DIR = '.deepspec';
+export const LEGACY_ROOT_DIR = '.spec.md';
+export const PACKAGE_NAME = 'deep-spec';
+export const COMMAND_PREFIX = 'deepspec';
+export const ORCHESTRATOR_DIR = 'deep-spec';
 
 export const commandName = (key: string): string => `${COMMAND_PREFIX}.${key}`;
 

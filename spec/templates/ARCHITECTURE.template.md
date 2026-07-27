@@ -1,6 +1,6 @@
 # Architecture — [name]
 
-> Mermaid diagrams for this task. Optional — create via `/spec.md.diagram-architecture`.
+> Mermaid diagrams for this task. Optional — create via `/deepspec.diagram-architecture`.
 
 ## Context
 

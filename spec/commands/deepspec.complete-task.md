@@ -23,7 +23,7 @@ You are **archiving** a completed task. Only the user closes the Review Gate.
 Run validation hook before proceeding:
 
 ```bash
-node ./.spec.md/hooks/validate.mjs '{"slug":"<slug>","expectStatus":"[IN REVIEW]"}'
+node ./.deepspec/hooks/validate.mjs '{"slug":"<slug>","expectStatus":"[IN REVIEW]"}'
 ```
 
 ### Step 1: Finalize COMPLETION_REPORT
@@ -51,7 +51,7 @@ If the task surfaced gotchas or reusable patterns, append concise notes under `#
 ### Step 5: Update tracking
 
 ```bash
-node ./.spec.md/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"archive","paths":[]}]}'
+node ./.deepspec/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"archive","paths":[]}]}'
 ```
 
 ### Step 6: Announce

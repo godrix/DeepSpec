@@ -136,7 +136,7 @@ export type ManifestInput = {
 };
 
 export type ManifestData = {
-  name: 'spec.md';
+  name: 'deep-spec';
   version: string;
   agent: string;
   createdAt: string;
@@ -150,7 +150,7 @@ export type TrackingEntry = {
 };
 
 export type TrackingMap = {
-  name: 'spec.md';
+  name: 'deep-spec';
   entries: TrackingEntry[];
 };
 

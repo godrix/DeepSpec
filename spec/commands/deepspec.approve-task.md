@@ -17,8 +17,8 @@ You are transitioning a task from **draft** to **active** and **executing immedi
 ### Step 1: Locate the task
 
 - Use the draft in context. If ambiguous among multiple `drafts/`, ask once.
-- Load `.spec.md/specs/drafts/[slug]/APPROACH.md`, `BUSINESS_CONTEXT.md`, `COMPLETION_REPORT.md`.
-- If no draft exists, **stop** and tell the user to run `/spec.md.create-task` first.
+- Load `.deepspec/specs/drafts/[slug]/APPROACH.md`, `BUSINESS_CONTEXT.md`, `COMPLETION_REPORT.md`.
+- If no draft exists, **stop** and tell the user to run `/deepspec.create-task` first.
 
 ### Step 2: Move to active (first approval only)
 
@@ -33,7 +33,7 @@ You are transitioning a task from **draft** to **active** and **executing immedi
 ### Step 4: Update tracking
 
 ```bash
-node ./.spec.md/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"active","paths":["..."]}]}'
+node ./.deepspec/hooks/track.mjs '{"entries":[{"name":"<slug>","stage":"active","paths":["..."]}]}'
 ```
 
 Use paths from `## Affected Files` in APPROACH.md.
@@ -48,7 +48,7 @@ Use paths from `## Affected Files` in APPROACH.md.
 Post and maintain this checklist:
 
 ```
-spec.md Progress [slug]:
+DeepSpec Progress [slug]:
 - [ ] Tests written from BUSINESS_CONTEXT acceptance criteria
 - [ ] APPROACH step 1: <short description>
 - [ ] ... (one box per Execution Plan step)
@@ -63,6 +63,6 @@ spec.md Progress [slug]:
 - **TDD First:** write tests from acceptance criteria before implementation.
 - **Atomic Execution:** one Execution Plan step at a time.
 - **Continuous C:** update `COMPLETION_REPORT.md` after each step.
-- When all items above Review Gate are `[x]`, enter Review Gate automatically (see `/spec.md.revise-task` for gate rules).
+- When all items above Review Gate are `[x]`, enter Review Gate automatically (see `/deepspec.revise-task` for gate rules).
 
 Work until Review Gate or a blocking question — do not stop after announcing approval.
