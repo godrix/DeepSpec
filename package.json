@@ -5,7 +5,8 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "deep-spec": "lib/bin/index.js"
+    "deep-spec": "lib/bin/index.js",
+    "deepspec": "lib/bin/index.js"
   },
   "repository": {
     "type": "git",
