@@ -1,6 +1,6 @@
 {
   "name": "deep-spec",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "DeepSpec — Spec-Driven Development framework for AI agents. A 3-stage pipeline (drafts → active → archive) with A-B-C documentation flow.",
   "license": "MIT",
   "type": "module",

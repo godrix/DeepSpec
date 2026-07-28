@@ -1,15 +1,68 @@
-export type CliCommand = 'init';
+export type CliCommand =
+  | 'init'
+  | 'list'
+  | 'show'
+  | 'memory'
+  | 'discard'
+  | 'validate'
+  | 'browse'
+  | 'create'
+  | 'approve'
+  | 'revise'
+  | 'run'
+  | 'agent';
+
+export type TaskStage = 'draft' | 'active' | 'archive';
+
+export type CliStageFilter = TaskStage | 'review';
 
 export type ParsedCliArgs = {
   command: CliCommand | undefined;
   agent: string | undefined;
+  slug: string | undefined;
+  stage: CliStageFilter | undefined;
+  reason: string | undefined;
+  name: string | undefined;
+  description: string | undefined;
+  full: boolean;
+  run: boolean;
+  print: boolean;
+  force: boolean;
+  dryRun: boolean;
   help: boolean;
   version: boolean;
 };
 
-export type HookHandler = (args: string[]) => Promise<string> | string;
+export type AgentRunnerMode = {
+  print: boolean;
+  force: boolean;
+};
 
-export type TaskStage = 'draft' | 'active' | 'archive';
+export type AgentRunnerSpec = {
+  key: string;
+  displayName: string;
+  binaries: string[];
+  buildArgs: (prompt: string, mode: AgentRunnerMode) => string[];
+};
+
+export type AgentInvokeOptions = {
+  agent?: string;
+  print?: boolean;
+  force?: boolean;
+  dryRun?: boolean;
+};
+
+export type AgentInvokeResult = {
+  ok: boolean;
+  agent?: string;
+  binary?: string;
+  commandLine?: string;
+  exitCode?: number;
+  dryRun?: boolean;
+  error?: string;
+};
+
+export type HookHandler = (args: string[]) => Promise<string> | string;
 
 export type CommandKey =
   | 'init'

@@ -1,4 +1,5 @@
 import type { AgentChoice } from '../types/core.js';
+import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
 import { interactiveSelect } from './interactive-select.js';
 import {
@@ -26,4 +27,18 @@ export const promptForAgent = async (
   stdout.write(`${agentSelectedLine(agent.displayName)}\n`);
 
   return agent.key;
+};
+
+export const promptText = async (question: string): Promise<string> => {
+  if (stdin.isPaused()) stdin.resume();
+
+  const rl = createInterface({ input: stdin, output: stdout });
+
+  try {
+    const answer = await rl.question(question);
+
+    return answer.trim();
+  } finally {
+    rl.close();
+  }
 };

@@ -2,7 +2,7 @@ import type { ValidationResult } from '../../types/core.js';
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { resolveSpecRoot } from '../../core/brand.js';
-import { parseStatus } from '../list/list.js';
+import { parseStatus } from '../../core/status.js';
 
 const VALID_STATUSES = [
   '[PENDING]',

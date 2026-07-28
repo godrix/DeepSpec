@@ -2,21 +2,15 @@ import type { TaskStage, TaskSummary } from '../../types/core.js';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { resolveSpecRoot } from '../../core/brand.js';
+import { parseStatus } from '../../core/status.js';
+
+export { parseStatus } from '../../core/status.js';
 
 const stageDirs = (rootDir: string): Record<TaskStage, string> => ({
   draft: `${rootDir}/specs/drafts`,
   active: `${rootDir}/specs/active`,
   archive: `${rootDir}/specs/archive`,
 });
-
-const STATUS_PATTERN =
-  /\*\*Status:\*\*\s*`(\[PENDING\]|\[IN PROGRESS\]|\[IN REVIEW\]|\[DONE\]|\[DISCARDED\])`/;
-
-export const parseStatus = (contents: string): string => {
-  const match = contents.match(STATUS_PATTERN);
-
-  return match ? match[1] : 'unknown';
-};
 
 const listStageTasks = async (
   targetDir: string,
@@ -80,18 +74,24 @@ export const listTasks = async (
 export const formatTaskList = (tasks: TaskSummary[]): string => {
   if (tasks.length === 0) return 'No tasks tracked yet.\n';
 
-  const grouped = new Map<TaskStage, TaskSummary[]>();
+  type ViewStage = TaskStage | 'review';
+  const grouped = new Map<ViewStage, TaskSummary[]>();
 
   for (const task of tasks) {
-    const bucket = grouped.get(task.stage) ?? [];
+    const view: ViewStage =
+      task.stage === 'active' && task.status === '[IN REVIEW]'
+        ? 'review'
+        : task.stage;
+    const bucket = grouped.get(view) ?? [];
 
     bucket.push(task);
-    grouped.set(task.stage, bucket);
+    grouped.set(view, bucket);
   }
 
   const lines: string[] = ['Tasks:'];
+  const order: ViewStage[] = ['draft', 'active', 'review', 'archive'];
 
-  for (const stage of ['draft', 'active', 'archive'] as TaskStage[]) {
+  for (const stage of order) {
     const bucket = grouped.get(stage);
 
     if (!bucket || bucket.length === 0) continue;

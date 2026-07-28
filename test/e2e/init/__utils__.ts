@@ -12,6 +12,16 @@ export const packageRoot = new URL('../../../', import.meta.url);
 const baseArgs: ParsedCliArgs = {
   command: undefined,
   agent: undefined,
+  slug: undefined,
+  stage: undefined,
+  reason: undefined,
+  name: undefined,
+  description: undefined,
+  full: false,
+  run: false,
+  print: false,
+  force: false,
+  dryRun: false,
   help: false,
   version: false,
 };
