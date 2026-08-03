@@ -1,7 +1,7 @@
 ---
 name: deep-spec
 version: 4.1.0
-description: Spec-Driven Development framework that guides tasks from intention to implementation through a 3-stage pipeline (drafts → active → archive) using the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Use when the user says "Initialize DeepSpec", "Create task", "Approve task", "Complete task", "Discard task", "Revise task", "Map codebase", "Diagram architecture", "Interview task", "Refinar tarefa", or mentions DeepSpec, Review Gate, spec-driven development, TDD planning, or the `.deepspec/` folder.
+description: Spec-Driven Development framework that guides tasks from intention to implementation through a 3-stage pipeline (drafts → active → archive) using the A-B-C documentation flow (APPROACH, BUSINESS_CONTEXT, COMPLETION_REPORT). Use when the user says "Initialize DeepSpec", "Create task", "Approve task", "Complete task", "Discard task", "Revise task", "Map codebase", "Diagram architecture", "Interview task", "Answer questions", "Refinar tarefa", or mentions DeepSpec, Review Gate, spec-driven development, TDD planning, or the `.deepspec/` folder.
 ---
 
 # DeepSpec Framework (Spec-Driven Development)
@@ -31,6 +31,7 @@ Operational prompts live in `spec/commands/`. Invoke by natural language or slas
 | `"Map codebase"` / `"Refresh AGENTS"` | `/deepspec.map-codebase`         | Deep-scan repo → rewrite `AGENTS.md`         |
 | `"Diagram architecture"`              | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task           |
 | `"Interview task"` / `"Sabatina"`     | `/deepspec.interview`            | One question/turn to refine APPROACH         |
+| `"Answer questions"`                  | `/deepspec.answer-questions`     | Incorporate OPEN_QUESTIONS answers + continue |
 
 ## Agent Role
 

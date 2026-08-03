@@ -19,6 +19,7 @@ const COMMAND_FILES: Record<CommandKey, string> = {
   'map-codebase': 'spec/commands/deepspec.map-codebase.md',
   'diagram-architecture': 'spec/commands/deepspec.diagram-architecture.md',
   interview: 'spec/commands/deepspec.interview.md',
+  'answer-questions': 'spec/commands/deepspec.answer-questions.md',
 };
 
 const TEMPLATE_FILES: Record<TemplateKey, string> = {

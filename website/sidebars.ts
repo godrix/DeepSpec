@@ -14,6 +14,7 @@ const sidebars: SidebarsConfig = {
         'commands/map-codebase',
         'commands/diagram-architecture',
         'commands/interview',
+        'commands/answer-questions',
       ],
     },
     'workflow',

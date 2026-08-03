@@ -65,6 +65,7 @@ cp -R deep-spec/. .cursor/skills/deep-spec/
 | `/deepspec.map-codebase`         | Refresh `AGENTS.md` from repo scan |
 | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task |
 | `/deepspec.interview`            | One-question approach refinement   |
+| `/deepspec.answer-questions`     | Incorporate open-question answers  |
 
 Optional per-task artifact: `ARCHITECTURE.md` (diagrams on demand). The VS Code extension shows **Execution Plan** progress from `APPROACH.md` reconciled with `COMPLETION_REPORT.md`.
 
@@ -80,6 +81,6 @@ deep-spec/         # orchestrator skill
 
 ## License
 
-MIT — see [LICENSE](https://github.com/godrix/spec.md/blob/main/LICENSE).
+MIT — see [LICENSE](https://github.com/godrix/DeepSpec/blob/main/LICENSE).
 
-Docs: [godrix.github.io/spec.md](https://godrix.github.io/spec.md/)
+Docs: [godrix.github.io/DeepSpec](https://godrix.github.io/DeepSpec/)

@@ -75,7 +75,8 @@ export type CommandKey =
   | 'repair'
   | 'map-codebase'
   | 'diagram-architecture'
-  | 'interview';
+  | 'interview'
+  | 'answer-questions';
 
 export type TemplateKey =
   | 'approach'

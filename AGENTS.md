@@ -71,6 +71,7 @@ The intelligence lives in the **spec**, not in the user memorizing commands.
 | Map       | `/deepspec.map-codebase`         | Re-scan repo → refresh `AGENTS.md`        |
 | Diagram   | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task        |
 | Interview | `/deepspec.interview`            | One-question approach refinement          |
+| Answer    | `/deepspec.answer-questions`     | Incorporate open-question answers         |
 
 Maintenance hooks (`list`, `track`, `repair`, `validate`) are deterministic TypeScript compiled to `.deepspec/hooks/*.mjs`.
 

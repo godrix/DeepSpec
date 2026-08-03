@@ -15,6 +15,8 @@ const ARGUMENT_HINTS: Record<CommandKey, string> = {
   'diagram-architecture':
     'Optional task slug or diagram focus (sequence, components, data-flow)',
   interview: 'Optional task slug or answer to the previous interview question',
+  'answer-questions':
+    'Optional task slug, question ids, or answers already saved from the DeepSpec panel',
 };
 
 const FRONTMATTER_PATTERN = /^---\n([\s\S]*?)\n---\n/;
