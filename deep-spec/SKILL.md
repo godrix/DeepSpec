@@ -18,19 +18,19 @@ Bootstrap: `npx deep-spec init cursor-agent` or `"Initialize DeepSpec"`.
 
 Operational prompts live in `spec/commands/`. Invoke by natural language or slash command:
 
-| Trigger                               | Command                         | Effect                                       |
-| ------------------------------------- | ------------------------------- | -------------------------------------------- |
-| `"Initialize DeepSpec"`                | `/deepspec.init`                 | Bootstrap `.deepspec/` + generate `AGENTS.md` |
-| `"Create task [name]"`                | `/deepspec.create-task`          | Draft in `drafts/` — **no app code**         |
-| `"Approve task"`                      | `/deepspec.approve-task`         | Move to `active/` + **implement same turn**  |
-| `"Discard task"`                      | `/deepspec.discard-task`         | `drafts/` → `archive/` as `[discarded]`      |
-| `"Complete task"`                     | `/deepspec.complete-task`        | Archive after Review Gate approval           |
-| `"Revise task"` / `"Refinar tarefa"`  | `/deepspec.revise-task`          | Review Rounds at `[IN REVIEW]`               |
-| list tasks                            | `/deepspec.list`                 | Read-only pipeline status                    |
-| repair tracking                       | `/deepspec.repair`               | Realign `tracking.json` after renames        |
-| `"Map codebase"` / `"Refresh AGENTS"` | `/deepspec.map-codebase`         | Deep-scan repo → rewrite `AGENTS.md`         |
-| `"Diagram architecture"`              | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task           |
-| `"Interview task"` / `"Sabatina"`     | `/deepspec.interview`            | One question/turn to refine APPROACH         |
+| Trigger                               | Command                          | Effect                                        |
+| ------------------------------------- | -------------------------------- | --------------------------------------------- |
+| `"Initialize DeepSpec"`               | `/deepspec.init`                 | Bootstrap `.deepspec/` + generate `AGENTS.md` |
+| `"Create task [name]"`                | `/deepspec.create-task`          | Draft in `drafts/` — **no app code**          |
+| `"Approve task"`                      | `/deepspec.approve-task`         | Move to `active/` + **implement same turn**   |
+| `"Discard task"`                      | `/deepspec.discard-task`         | `drafts/` → `archive/` as `[discarded]`       |
+| `"Complete task"`                     | `/deepspec.complete-task`        | Archive after Review Gate approval            |
+| `"Revise task"` / `"Refinar tarefa"`  | `/deepspec.revise-task`          | Review Rounds at `[IN REVIEW]`                |
+| list tasks                            | `/deepspec.list`                 | Read-only pipeline status                     |
+| repair tracking                       | `/deepspec.repair`               | Realign `tracking.json` after renames         |
+| `"Map codebase"` / `"Refresh AGENTS"` | `/deepspec.map-codebase`         | Deep-scan repo → rewrite `AGENTS.md`          |
+| `"Diagram architecture"`              | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task            |
+| `"Interview task"` / `"Sabatina"`     | `/deepspec.interview`            | One question/turn to refine APPROACH          |
 | `"Answer questions"`                  | `/deepspec.answer-questions`     | Incorporate OPEN_QUESTIONS answers + continue |
 
 ## Agent Role

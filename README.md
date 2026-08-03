@@ -52,9 +52,9 @@ cp -R deep-spec/. .cursor/skills/deep-spec/
 
 ## Commands
 
-| Command                         | Trigger                            |
-| ------------------------------- | ---------------------------------- |
-| `/deepspec.init`                 | Initialize DeepSpec                 |
+| Command                          | Trigger                            |
+| -------------------------------- | ---------------------------------- |
+| `/deepspec.init`                 | Initialize DeepSpec                |
 | `/deepspec.create-task`          | Create draft task                  |
 | `/deepspec.approve-task`         | Approve + execute                  |
 | `/deepspec.discard-task`         | Discard draft                      |

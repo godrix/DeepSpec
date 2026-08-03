@@ -56,7 +56,8 @@ await describe('CLI pipeline commands', async () => {
     const original = process.stdout.write.bind(process.stdout);
 
     process.stdout.write = ((chunk: string | Uint8Array) => {
-      output += typeof chunk === 'string' ? chunk : Buffer.from(chunk).toString();
+      output +=
+        typeof chunk === 'string' ? chunk : Buffer.from(chunk).toString();
       return true;
     }) as typeof process.stdout.write;
 
@@ -104,7 +105,10 @@ await describe('CLI pipeline commands', async () => {
     strict.equal(created.slug, 'webhook-retry');
 
     const drafts = await listTasks(workspace, 'draft');
-    strict.equal(drafts.some((task) => task.slug === 'webhook-retry'), true);
+    strict.equal(
+      drafts.some((task) => task.slug === 'webhook-retry'),
+      true
+    );
 
     const approved = await approveDraftTask(workspace, 'webhook-retry');
 
@@ -150,7 +154,8 @@ await describe('CLI pipeline commands', async () => {
     const original = process.stdout.write.bind(process.stdout);
 
     process.stdout.write = ((chunk: string | Uint8Array) => {
-      output += typeof chunk === 'string' ? chunk : Buffer.from(chunk).toString();
+      output +=
+        typeof chunk === 'string' ? chunk : Buffer.from(chunk).toString();
       return true;
     }) as typeof process.stdout.write;
 
@@ -199,7 +204,10 @@ await describe('CLI pipeline commands', async () => {
     strict.equal(archived?.stage, 'archive');
     strict.equal(archived?.status, '[DISCARDED]');
 
-    const memory = await readFile(join(workspace, '.deepspec/memory.md'), 'utf8');
+    const memory = await readFile(
+      join(workspace, '.deepspec/memory.md'),
+      'utf8'
+    );
 
     strict.equal(memory.includes('[drop-me]'), true);
     strict.equal(memory.includes('[discarded]'), true);

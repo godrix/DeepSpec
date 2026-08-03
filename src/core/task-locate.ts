@@ -19,7 +19,8 @@ export type LocatedTask = {
   specsPath: string;
 };
 
-export const stageFolderName = (stage: TaskStage): string => STAGE_FOLDERS[stage];
+export const stageFolderName = (stage: TaskStage): string =>
+  STAGE_FOLDERS[stage];
 
 export const locateTask = async (
   targetDir: string,

@@ -210,7 +210,8 @@ export const requestDraftChanges = async (
   if (located.stage !== 'draft')
     return {
       ok: false,
-      error: 'Request changes on drafts only. For Review Gate use revise on active/[IN REVIEW].',
+      error:
+        'Request changes on drafts only. For Review Gate use revise on active/[IN REVIEW].',
     };
 
   const trimmed = feedback.trim();

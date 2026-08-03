@@ -44,7 +44,11 @@ const loadWorkspaceTemplate = async (
   }
 };
 
-const seedBusinessContext = (template: string, title: string, intent: string): string => {
+const seedBusinessContext = (
+  template: string,
+  title: string,
+  intent: string
+): string => {
   let text = template.replaceAll('[name]', title);
 
   text = text.replace(
@@ -59,7 +63,11 @@ const seedBusinessContext = (template: string, title: string, intent: string): s
   return text;
 };
 
-const seedApproach = (template: string, title: string, intent: string): string => {
+const seedApproach = (
+  template: string,
+  title: string,
+  intent: string
+): string => {
   let text = template.replaceAll('[name]', title);
 
   text = text.replace(
@@ -75,10 +83,7 @@ const seedCompletionReport = (template: string, title: string): string => {
 
   return template
     .replaceAll('[name]', title)
-    .replace(
-      /\*\*Status:\*\*.*/,
-      '**Status:** `[PENDING]`'
-    )
+    .replace(/\*\*Status:\*\*.*/, '**Status:** `[PENDING]`')
     .replace(/\*\*Started:\*\*.*/, `**Started:** ${date}`)
     .replace(/\*\*Completed:\*\*.*/, '**Completed:**');
 };

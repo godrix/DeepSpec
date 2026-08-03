@@ -58,20 +58,20 @@ The intelligence lives in the **spec**, not in the user memorizing commands.
 
 ## 4. The DeepSpec workflow
 
-| Stage     | Command                         | Purpose                                   |
-| --------- | ------------------------------- | ----------------------------------------- |
+| Stage     | Command                          | Purpose                                    |
+| --------- | -------------------------------- | ------------------------------------------ |
 | Bootstrap | `/deepspec.init`                 | Create `.deepspec/` + generate `AGENTS.md` |
-| Draft     | `/deepspec.create-task`          | A-B-C planning — **no app code**          |
-| Approve   | `/deepspec.approve-task`         | Move to `active/` + implement same turn   |
-| Review    | `/deepspec.revise-task`          | Review Gate + Review Rounds               |
-| Complete  | `/deepspec.complete-task`        | Archive after user approval               |
-| Discard   | `/deepspec.discard-task`         | Abandon draft without code                |
-| List      | `/deepspec.list`                 | Read-only pipeline status                 |
-| Repair    | `/deepspec.repair`               | Realign `tracking.json` after renames     |
-| Map       | `/deepspec.map-codebase`         | Re-scan repo → refresh `AGENTS.md`        |
-| Diagram   | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task        |
-| Interview | `/deepspec.interview`            | One-question approach refinement          |
-| Answer    | `/deepspec.answer-questions`     | Incorporate open-question answers         |
+| Draft     | `/deepspec.create-task`          | A-B-C planning — **no app code**           |
+| Approve   | `/deepspec.approve-task`         | Move to `active/` + implement same turn    |
+| Review    | `/deepspec.revise-task`          | Review Gate + Review Rounds                |
+| Complete  | `/deepspec.complete-task`        | Archive after user approval                |
+| Discard   | `/deepspec.discard-task`         | Abandon draft without code                 |
+| List      | `/deepspec.list`                 | Read-only pipeline status                  |
+| Repair    | `/deepspec.repair`               | Realign `tracking.json` after renames      |
+| Map       | `/deepspec.map-codebase`         | Re-scan repo → refresh `AGENTS.md`         |
+| Diagram   | `/deepspec.diagram-architecture` | Mermaid `ARCHITECTURE.md` per task         |
+| Interview | `/deepspec.interview`            | One-question approach refinement           |
+| Answer    | `/deepspec.answer-questions`     | Incorporate open-question answers          |
 
 Maintenance hooks (`list`, `track`, `repair`, `validate`) are deterministic TypeScript compiled to `.deepspec/hooks/*.mjs`.
 
@@ -93,13 +93,13 @@ When changing source under `src/`, `spec/`, or `test/`, read the `architecture` 
 
 | Path              | Purpose                                          |
 | ----------------- | ------------------------------------------------ |
-| `spec/commands/`  | `/deepspec.*` command definitions                 |
+| `spec/commands/`  | `/deepspec.*` command definitions                |
 | `spec/templates/` | A-B-C and bootstrap templates                    |
 | `src/`            | TypeScript source (CLI, hooks, providers)        |
 | `lib/`            | Compiled output (generated)                      |
-| `deep-spec/`        | Orchestrator skill payload (retrocompat install) |
+| `deep-spec/`      | Orchestrator skill payload (retrocompat install) |
 | `test/`           | Poku e2e + integration tests                     |
 | `website/`        | Docusaurus documentation site                    |
-| `.deepspec/`       | Dogfooded instance in this repo                  |
+| `.deepspec/`      | Dogfooded instance in this repo                  |
 
 Reference implementation patterns: `ideas/blue-spec/` (read-only reference, not shipped).

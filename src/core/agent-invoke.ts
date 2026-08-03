@@ -106,10 +106,7 @@ export const resolveRunnableAgent = async (
   );
 };
 
-export const buildSlashPrompt = (
-  command: string,
-  args?: string
-): string => {
+export const buildSlashPrompt = (command: string, args?: string): string => {
   const slash = `/${commandName(command)}`;
   const trimmed = args?.trim();
 
@@ -131,8 +128,7 @@ export const invokeConfiguredAgent = async (
     };
 
   const print =
-    options.print === true ||
-    (options.print !== false && input.isTTY !== true);
+    options.print === true || (options.print !== false && input.isTTY !== true);
   const force = options.force !== false;
   const args = runner.buildArgs(prompt, { print, force });
   const commandLine = [resolved.binary, ...args]

@@ -106,10 +106,7 @@ const readDocPaged = async (
   for (;;) {
     const slice = loaded.lines.slice(offset, offset + PAGE_SIZE);
     const page = Math.floor(offset / PAGE_SIZE) + 1;
-    const totalPages = Math.max(
-      1,
-      Math.ceil(loaded.lines.length / PAGE_SIZE)
-    );
+    const totalPages = Math.max(1, Math.ceil(loaded.lines.length / PAGE_SIZE));
     const hasMore = offset + PAGE_SIZE < loaded.lines.length;
 
     print('');

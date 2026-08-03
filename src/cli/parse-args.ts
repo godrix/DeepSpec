@@ -1,4 +1,8 @@
-import type { CliCommand, CliStageFilter, ParsedCliArgs } from '../types/core.js';
+import type {
+  CliCommand,
+  CliStageFilter,
+  ParsedCliArgs,
+} from '../types/core.js';
 import { parseArgs } from 'node:util';
 import { isTaskStage } from '../core/tracking.js';
 
@@ -70,16 +74,13 @@ export const parseCliArgs = (argv: string[]): ParsedCliArgs => {
   const feedback =
     (typeof values.message === 'string' ? values.message : undefined) ||
     (typeof values.reason === 'string' ? values.reason : undefined);
-  const agentFlag =
-    typeof values.agent === 'string' ? values.agent : undefined;
+  const agentFlag = typeof values.agent === 'string' ? values.agent : undefined;
 
   return {
     command,
-    agent: command === 'init' ? rest[0] ?? agentFlag : agentFlag,
+    agent: command === 'init' ? (rest[0] ?? agentFlag) : agentFlag,
     slug: command && SLUG_COMMANDS.has(command) ? rest[0] : undefined,
-    stage: toStage(
-      typeof values.stage === 'string' ? values.stage : undefined
-    ),
+    stage: toStage(typeof values.stage === 'string' ? values.stage : undefined),
     reason: feedback,
     name: typeof values.name === 'string' ? values.name : undefined,
     description:

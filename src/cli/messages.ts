@@ -1,9 +1,5 @@
 import type { ScaffoldResult } from '../types/core.js';
-import {
-  PACKAGE_NAME,
-  PRODUCT_NAME,
-  commandName,
-} from '../core/brand.js';
+import { PACKAGE_NAME, PRODUCT_NAME, commandName } from '../core/brand.js';
 import { headerText } from './banner.js';
 
 export const versionText = (version: string): string =>

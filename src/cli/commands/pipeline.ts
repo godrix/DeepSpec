@@ -13,17 +13,18 @@ import {
   requestDraftChanges,
 } from '../../core/task-ops.js';
 import { createDraftTask } from '../../core/create-task.js';
-import {
-  formatMemory,
-  readMemoryEntries,
-} from '../../core/memory-view.js';
+import { formatMemory, readMemoryEntries } from '../../core/memory-view.js';
 import {
   buildSlashPrompt,
   describeAgentStatus,
   invokeConfiguredAgent,
 } from '../../core/agent-invoke.js';
 import { validateTask } from '../../hooks/validate/validate.js';
-import type { ParsedCliArgs, TaskStage, TaskSummary } from '../../types/core.js';
+import type {
+  ParsedCliArgs,
+  TaskStage,
+  TaskSummary,
+} from '../../types/core.js';
 
 const print = (line: string): void => {
   process.stdout.write(`${line}\n`);

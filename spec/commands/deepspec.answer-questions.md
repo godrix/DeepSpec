@@ -36,6 +36,7 @@ For each question in User Input (or every newly `answered` entry in `OPEN_QUESTI
 
 ```markdown
 ### Qn — <short title>
+
 - **Status:** answered
 - **Asked:** YYYY-MM-DD
 - **Blocking:** …

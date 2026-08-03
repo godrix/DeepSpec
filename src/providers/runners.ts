@@ -54,6 +54,5 @@ export const AGENT_RUNNERS: Record<string, AgentRunnerSpec> = {
   },
 };
 
-export const getAgentRunner = (
-  agentKey: string
-): AgentRunnerSpec | undefined => AGENT_RUNNERS[agentKey];
+export const getAgentRunner = (agentKey: string): AgentRunnerSpec | undefined =>
+  AGENT_RUNNERS[agentKey];

@@ -62,10 +62,7 @@ const askRunViaAgent = async (): Promise<boolean> => {
   const index = await interactiveSelect({
     title: 'Invoke configured agent CLI?',
     hint: 'Uses agent from .deepspec/manifest.json (or DEEPSPEC_AGENT)',
-    options: [
-      { label: 'Yes — run agent CLI' },
-      { label: 'No — local only' },
-    ],
+    options: [{ label: 'Yes — run agent CLI' }, { label: 'No — local only' }],
   });
 
   return index === 0;
